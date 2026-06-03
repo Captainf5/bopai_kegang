@@ -1,100 +1,198 @@
 ---
 name: bopai-kegang
-description: Designs mobile-first enterprise training course outlines from short briefs. Invoke when users want fast curriculum drafts, industry customization, or direct outline generation from requirements or questionnaires.
+description: 设计并交付企业AI培训课纲。适用于移动端快速出稿、行业定制、问卷转课纲，以及生成可交付的 Word/PDF 企业培训课纲。
 ---
 
 # BoPai Kegang
 
-Self-contained curriculum design Skill for Claude-style agents.
+用于生成对外可交付、简洁实战、可直接转 Word/PDF 的企业培训课纲。
 
-Use this Skill when the user wants a fast first draft of an enterprise training outline, especially from mobile chat, fragmented requirements, or questionnaire summaries.
+这个 Skill 是独立发布版，但输出质量要尽量对齐电脑端正式工作流。不要把它当成普通“出第一稿”的轻量提示词，而要把它当成一套有硬约束的课纲生产规则。
 
-This package is designed to be portable:
+## 触发条件
 
-- no dependency on the original project folders
-- can be published as a standalone GitHub folder
-- can be copied into Trae or similar Skill-capable agents
-- can also serve as a structured prompt pack for Codex-style agents
+当用户要做以下事情时调用：
 
-It includes four layers:
+- 创建半天、1天或多天的企业培训课纲
+- 基于一句话需求、零散 brief、聊天记录快速出课纲
+- 做港口、机场、电力、银行、零售、物流、制造等行业定制
+- 基于问卷、表格、纪要整理成正式课纲
+- 输出最终可交付版本，包括 Word / PDF / HTML
 
-- core Skill files for fast outline generation
-- `reference-pack/` for benchmarking and industry adaptation
-- `delivery-pack/` for Word, PDF, HTML delivery assets
-- `feishu-pack/` for questionnaire-to-brief support
+## 三条铁律
 
-## Use When
+1. 先判断 `Type A` 还是 `Type B`
+2. 先补齐最关键的信息，再生成完整课纲
+3. 输出必须面向甲方可读，可直接交付，不暴露内部方法论术语
 
-- The user wants a half-day, one-day, or multi-day course outline
-- The user provides only a short brief and wants a fast draft
-- The user needs industry customization such as port, airport, energy, retail, banking, logistics
-- The user gives questionnaire text, notes, or table summaries and wants them turned into a course outline
-- The user wants a first draft now and refinement later
+## Type A / Type B 规则
 
-## Default Mode
+### Type A
 
-- Default to `Type B`: outline from client needs without formal questionnaire analysis
-- Default output is `Markdown`
-- Default to China-accessible tools first
-- Default to “draft first, refine later”
-- If non-critical fields are missing, make reasonable assumptions and list them under `待确认项`
+当用户提供问卷结果、调研结论、学员画像、飞书表格汇总等结构化素材时，使用 `Type A`。
 
-## Blocking Questions
+固定章节顺序：
 
-Only treat these as blocking:
+1. 企业背景与定制说明
+2. 主讲人介绍
+3. 课程大纲
+4. 课程产出
+5. 课件展示
+6. 课程现场
+7. 课后提供
+8. 培训准备
 
-1. Client or industry
-2. Audience or roles
-3. Duration
-4. Tool or compliance limits
+### Type B
 
-If these four are mostly clear, generate the first draft immediately.
+当用户只提供业务需求、行业方向、培训目标、管理者口头需求时，使用 `Type B`。
 
-## Execution Checklist
+固定章节顺序：
 
-- [ ] Determine `Type A` or `Type B`
-- [ ] Compress the input into a short brief
-- [ ] Build the module and timing structure
-- [ ] Output the full outline in Markdown
-- [ ] Add `待确认项`
-- [ ] Run quick self-check
+1. 主讲人介绍
+2. 本课程说明
+3. 课程大纲
+4. 课程产出
+5. 课件展示
+6. 课程现场
+7. 课后准备
+8. 培训准备
 
-Detailed flow: `WORKFLOW.md`
+原则：
 
-## Progressive Disclosure
+- 前部精简，不在前几章塞入课程亮点、工具长清单、课前准备
+- `本课程说明` 仅保留 3 条：课程定位 / 适用对象 / 时间安排
 
-Read only what is needed.
+## 阻塞信息
 
-- Start with this file
-- Read `WORKFLOW.md` for execution steps
-- Read `OUTPUT-FORMAT.md` when drafting the final outline
-- Read `CHECKLIST.md` before final output
-- Read `EXAMPLES.md` only when an industry example or wording style is needed
-- Read `reference-pack/` only when stronger customization or benchmarking is needed
-- Read `delivery-pack/` only when the user asks for Word, PDF, HTML, or client delivery version
-- Read `feishu-pack/` only when the user provides questionnaire or table summaries
+只把以下信息视为真正阻塞：
 
-Do not assume access to any external project files.
+1. 客户或行业
+2. 学员或岗位
+3. 时长
+4. 工具限制或合规限制
 
-## Writing Rules
+如果以上 4 项基本清晰，先生成完整第一版；其他信息可以合理假设，并在结尾列入 `待确认项`。
 
-- Use client-facing wording, not internal jargon
-- Do not expose labels such as “大展宏图”, “BOBO-123”, or “AI First”
-- Do not write tea breaks, voting, icebreakers, or workshop operations unless explicitly requested
-- Each module should include: `讲解要点` / `演示` / `学员练习` / `产出物`
-- Each module should list at most 1 primary tool and 1 backup tool
-- For PPT scenarios, prefer `iSlide` and `智谱GLM`
+## 课程大纲硬约束
 
-## Mobile-First Behavior
+第三章 `课程大纲` 必须按以下四段组织，顺序不可变、不可缺段：
 
-In short-chat or mobile scenarios:
+```markdown
+#### 第一部分：AI趋势与业务场景（X分钟）｜时间
+#### 第二部分：核心工具实战（X分钟）｜时间
+#### 第三部分：工作流与成果串联（X分钟）｜时间
+#### 第四部分：落地行动与总结（X分钟）｜时间
+```
 
-1. Reduce user input into a 6-line brief
-2. Generate the full first draft without over-questioning
-3. Keep only 3-5 confirmation items at the end
-4. Refine specific sections after feedback, not the whole outline
+### 第一部分：AI趋势与业务场景
 
-## Brief Template
+- 时长通常为总时长的 10%-15%
+- 必须体现：行业 AI 落地现状、国产 AI 机会、岗位价值
+- 必须写客户行业真实场景，不要空泛讲趋势
+
+### 第二部分：核心工具实战
+
+- 时长通常为总时长的 40%-50%
+- 核心是实战，不是概念堆砌
+- 每个模块都必须写：`讲解要点` / `演示` / `学员练习` / `产出物`
+- 至少 1 处体现“把好用结果存成模板”
+- 每个模块最多 1 个主工具 + 1 个备选工具
+- PPT 场景只用：`iSlide`、`智谱GLM`
+
+### 第三部分：工作流与成果串联
+
+- 时长通常为总时长的 20%-30%
+- 必须体现：从单点工具到完整流程
+- 必须体现：每周自动化一个流程
+- 必须体现：用 AI 做出以前做不了或没时间做的成果
+
+### 第四部分：落地行动与总结
+
+- 时长通常为总时长的 10%-15%
+- 必须有 1 周 / 1 月 / 3 月行动卡
+- 必须有资源包发放或课后支持说明
+- 收尾要落在“接下来怎么做”，不是空泛总结
+
+## 输出风格红线
+
+- 不暴露内部术语，如 `大展宏图`、`BOBO-123`、`AI First`
+- 不写茶歇、小互动、投票、破冰等非教学运营内容
+- 不堆工具，不写超长工具清单
+- 语言必须面向甲方客户可读，标题必须中性专业
+- 练习、案例、产出物必须贴近客户行业真实任务
+- 至少提供 3 个行业真实任务或练习场景
+
+## 主讲人介绍固定模板
+
+默认使用以下内容，仅可微调客户名或行业词，不增加段落：
+
+```markdown
+**冯博Gatsby　世界500强AI落地专家**
+
+- 懂技术：全球首批微软AI工程师认证/世界人工智能大会特邀嘉宾
+- 懂商业：前美股上市公司趣店（QD）核心管理层，0-1见证企业纽交所上市
+- 有人脉：南开大学深圳校友会理事，初善创投AI创业导师，3家AI公司顾问
+- 有方法：[AI召唤师]社群主理人，著有《务实理解ChatGPT指南》
+- 有成果：主导100+头部企业AI培训，好评率96%，学员复购率行业TOP 5%
+
+冯博老师团队的愿景：让2%的中国人用好AI
+
+2024年至今已交付超过100+头部客户，包括华润、移动、招行、人保、字节、格力、可口可乐等；授课风格通俗易懂，互动激情，注重实操。更确保学员课上的交付物产出，让其即学即用，充满成就感。
+```
+
+## 默认执行顺序
+
+- [ ] 判断 `Type A` / `Type B`
+- [ ] 将输入压缩成 6 行以内 brief
+- [ ] 先搭八章交付结构，再写第三章四段式
+- [ ] 选 1 份最贴近的经典课纲作为结构参考
+- [ ] 如有行业定制需求，再补 1 份最贴近的定制课纲
+- [ ] 输出完整 Markdown 课纲
+- [ ] 列出 `待确认项`
+- [ ] 按 `CHECKLIST.md` 快速自检
+
+详细流程见 `WORKFLOW.md`。
+
+## 默认读取顺序
+
+这个发布版必须优先吃到核心规则，不要只读一个主文件就草率生成。
+
+### 默认必读
+
+- 当前文件 `SKILL.md`
+- `WORKFLOW.md`
+- `OUTPUT-FORMAT.md`
+- `CHECKLIST.md`
+
+### 默认参考
+
+至少读取以下 1 份经典课纲：
+
+- `reference-pack/经典课纲/博AI增效_10倍AI职场办公增效_2026版.md`
+- `reference-pack/经典课纲/博AI增效_10倍业务型智能体工作坊_2026版.md`
+
+有行业定制需求时，再补读 1 份最接近的：
+
+- `reference-pack/定制课纲/` 下华润或电力相关文件
+
+### 按需追加
+
+- 用户给问卷或表格：读 `feishu-pack/`
+- 用户要 Word / PDF / HTML：读 `delivery-pack/`
+- 用户要行业措辞参考：读 `EXAMPLES.md`
+
+不要假设能访问仓库外部文件；必须只依赖当前包内资料完成任务。
+
+## 移动端工作方式
+
+在手机端或短对话场景中：
+
+1. 先把需求压缩成 6 行以内 brief
+2. 直接出完整第一版，不反复追问
+3. 结尾仅保留 3-5 个 `待确认项`
+4. 用户补充后只改相关模块，不整篇重写
+
+## 极简 Brief 模板
 
 ```text
 客户/行业：
@@ -105,26 +203,26 @@ In short-chat or mobile scenarios:
 限制：
 ```
 
-## Output Order
+## 建议输出顺序
 
 1. 需求摘要
 2. 课纲标题
 3. 完整课纲 Markdown
 4. 待确认项
 
-## Delivery Capability
+## 最终交付能力
 
-When the user asks for final delivery:
+当用户明确要最终交付件时：
 
-- use `delivery-pack/scripts/课纲排版toWord带图版.py` to generate Word
-- use `delivery-pack/images/` for lecturer, slides, and现场图片
-- use `delivery-pack/STYLE-GUIDE-WORD.md` to preserve enterprise-grade formatting
-- use `delivery-pack/HTML-CARD-PROMPT.md` when HTML card delivery is preferred
-- use `delivery-pack/scripts/docx_to_pdf.py` when PDF output is needed and the environment supports it
+- 必须使用 `delivery-pack/STYLE-GUIDE-WORD.md` 保持企业级排版
+- 必须使用 `delivery-pack/images/` 保留讲师、课件、现场图片
+- 必须使用 `delivery-pack/scripts/课纲排版toWord带图版.py` 生成 Word
+- 需要 PDF 时，使用 `delivery-pack/scripts/docx_to_pdf.py`
+- 需要 HTML 卡片版时，使用 `delivery-pack/HTML-CARD-PROMPT.md`
 
-Do not skip delivery assets when the request is for a client-facing final file.
+不能因为是移动端或独立版，就跳过图片、模板、排版规则。
 
-## References In This Package
+## 包内关键文件
 
 - `WORKFLOW.md`
 - `OUTPUT-FORMAT.md`

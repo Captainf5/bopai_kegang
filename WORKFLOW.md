@@ -1,30 +1,50 @@
 # Workflow
 
-## Goal
+## 目标
 
-Turn a short requirement into a usable enterprise training outline with as few dialogue rounds as possible.
+把零散需求转成可直接对外发送、可继续排版交付的企业培训课纲，并尽量对齐电脑端正式工作流的质量。
 
-## Step 1: Determine Type
+## Step 0：先判断交付目标
 
-- `Type A`: the user provides questionnaire results, learner data, or structured survey findings
-- `Type B`: the user provides only business needs, industry direction, or training goals
+先判断用户要的是哪一层结果：
 
-Default to `Type B` unless strong questionnaire evidence exists.
+- 只要课纲正文
+- 要对外客户版 Markdown
+- 要 Word / PDF / HTML 最终交付件
 
-## Step 2: Capture Minimum Inputs
+如果用户明确说“要交付”“发客户”“出 Word/PDF”，就必须把交付层一起考虑，不要只停在正文草稿。
 
-Prioritize only these:
+## Step 1：确认 Type A / Type B
 
-- client or industry
-- audience or roles
-- duration
-- tool or compliance limits
+- `Type A`：有问卷、调研、画像、表格、纪要结论
+- `Type B`：只有业务需求、行业方向、岗位目标、培训主题
 
-If they are mostly clear, stop asking and continue.
+默认优先判断为 `Type B`，但只要存在结构化调研素材，就应切换为 `Type A`。
 
-## Step 3: Build a Short Brief
+## Step 2：收集最少信息
 
-Compress the information to:
+至少拿到以下 4 项：
+
+- 客户 / 行业
+- 学员 / 岗位
+- 时长
+- 工具限制 / 合规限制
+
+如已基本清晰，就不要继续追问，直接开始生成第一版。
+
+可选补充项包括：
+
+- 人数
+- AI 基础水平
+- 设备环境
+- 重点模块
+- 期望产出
+
+缺失时可以合理假设，但必须在结尾列入 `待确认项`。
+
+## Step 3：压缩成 Brief
+
+统一整理成：
 
 ```text
 客户/行业：
@@ -35,69 +55,124 @@ Compress the information to:
 限制：
 ```
 
-## Step 4: Create the Skeleton
+这个 brief 最好控制在 6 行以内，便于移动端和其他 Agent 复用。
 
-Use four client-facing sections inside the course agenda:
+## Step 4：先搭八章交付结构
+
+### Type A 结构
+
+1. 企业背景与定制说明
+2. 主讲人介绍
+3. 课程大纲
+4. 课程产出
+5. 课件展示
+6. 课程现场
+7. 课后提供
+8. 培训准备
+
+### Type B 结构
+
+1. 主讲人介绍
+2. 本课程说明
+3. 课程大纲
+4. 课程产出
+5. 课件展示
+6. 课程现场
+7. 课后准备
+8. 培训准备
+
+注意：
+
+- 前部必须精简
+- 不要在前几章塞工具大全、课程亮点、课前准备
+- `本课程说明` 只保留 3 条：课程定位 / 适用对象 / 时间安排
+
+## Step 5：再写第三章四段式
+
+第三章 `课程大纲` 固定写成四部分：
 
 1. AI趋势与业务场景
 2. 核心工具实战
 3. 工作流与成果串联
 4. 落地行动与总结
 
-The four sections must stay in this order.
+顺序不可变、不可缺段。
 
-## Step 5: Allocate Time
+时间分配建议：
 
-- Trend section: 10-15%
-- Tool practice section: 40-50%
-- Workflow section: 20-30%
-- Landing and action section: 10-15%
+- 第一部分：10%-15%
+- 第二部分：40%-50%
+- 第三部分：20%-30%
+- 第四部分：10%-15%
 
-Adjust by duration, but keep the overall balance.
+## Step 6：默认先选参考底稿
 
-## Step 6: Industry Adaptation
+先从 `reference-pack/经典课纲/` 里选 1 份最贴近的经典课纲作为结构底稿：
 
-Replace generic content with real business scenes from the user's industry.
+- 偏办公增效：`博AI增效_10倍AI职场办公增效_2026版.md`
+- 偏智能体 / 工作坊：`博AI增效_10倍业务型智能体工作坊_2026版.md`
 
-Good industry adaptation should include:
+再根据行业补读 1 份最接近的定制课纲：
 
-- 3 or more real tasks from the target industry
-- tools that fit compliance and device constraints
-- outputs that learners can actually take away
+- 电力类优先从 `reference-pack/定制课纲/` 中电力相关文件选
+- 华润类优先从 `reference-pack/定制课纲/` 中华润相关文件选
 
-When needed, benchmark against one or two files from `reference-pack/`, not the whole folder.
+不要一次性通读整个参考库，默认 1 份经典 + 1 份定制即可。
 
-## Step 7: Draft the Output
+## Step 7：做行业替换
 
-Follow `OUTPUT-FORMAT.md`.
+把底稿中的泛化内容替换成客户行业真实任务。
 
-Required output order:
+至少要做到：
+
+- 行业痛点贴近客户岗位
+- 案例或练习不少于 3 个真实任务
+- 工具符合客户合规和终端环境
+- 产出物是学员真能带走的成果
+
+## Step 8：写作红线
+
+生成时必须满足：
+
+- 不暴露 `大展宏图`、`BOBO-123`、`AI First` 等内部术语
+- 不写茶歇、小互动、投票、破冰
+- 每个实战模块都要有：讲解要点 / 演示 / 学员练习 / 产出物
+- 至少 1 处让学员“存模板”
+- PPT 场景只写 `iSlide`、`智谱GLM`
+- 每模块最多 1 个主工具 + 1 个备选工具
+
+## Step 9：按模板输出
+
+严格按 `OUTPUT-FORMAT.md` 输出，顺序为：
 
 1. 需求摘要
 2. 课纲标题
 3. 完整课纲 Markdown
 4. 待确认项
 
-## Step 8: Produce Delivery Files
+## Step 10：如需交付，继续生成成品
 
-If the user needs final delivery:
+用户要求最终版时：
 
-- create Word with `delivery-pack/scripts/课纲排版toWord带图版.py`
-- keep style aligned with `delivery-pack/STYLE-GUIDE-WORD.md`
-- use `delivery-pack/images/` so the document remains client-ready
-- if PDF is required, run `delivery-pack/scripts/docx_to_pdf.py` where supported
-- if HTML card delivery is preferred, follow `delivery-pack/HTML-CARD-PROMPT.md`
+- 用 `delivery-pack/scripts/课纲排版toWord带图版.py` 生成 Word
+- 用 `delivery-pack/STYLE-GUIDE-WORD.md` 统一格式
+- 用 `delivery-pack/images/` 保留讲师、课件、现场图片
+- 需要 PDF 时，用 `delivery-pack/scripts/docx_to_pdf.py`
+- 需要 HTML 卡片时，按 `delivery-pack/HTML-CARD-PROMPT.md`
 
-## Step 9: Refine After Feedback
+## Step 11：用户补充后定点微调
 
-When the user replies with more details, update only the affected parts:
+如果用户后续补充客户信息，只修改相关内容：
 
-- course positioning
-- industry cases
-- tool stack
-- time allocation
-- outputs and preparation
+- 课程定位
+- 行业案例
+- 工具栈
+- 时间分配
+- 课程产出
+- 培训准备
 
-## Step 10: Questionnaire Branch
+不要因为补充了 1 个信息，就整篇推倒重写。
 
-If the user provides a questionnaire, use `feishu-pack/` to normalize the brief before revising the outline.
+## Step 12：问卷分支
+
+如果输入是问卷、表格、调研纪要，先读取 `feishu-pack/` 将内容规整成 brief，再返回主流程生成课纲。

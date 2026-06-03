@@ -1,6 +1,6 @@
 # BoPai Kegang
 
-Current version: `v1.0.0`
+Current version: `v1.1.0`
 
 A portable, mobile-first Skill package for generating enterprise training outlines and delivering client-ready Word, PDF, and HTML assets.
 
@@ -108,3 +108,4 @@ If you want, this folder can be published:
 - This package is intentionally self-contained and does not require the original PC-side project folders
 - It preserves delivery capability by bundling scripts, images, and style rules
 - It preserves benchmarking capability by bundling selected reference outlines
+- `v1.1.0` aligns the portable Skill with the stronger PC-side structure rules, fixed chapter order, four-part agenda, lecturer template, and delivery guardrails

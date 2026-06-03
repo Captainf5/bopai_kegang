@@ -1,35 +1,45 @@
 # Checklist
 
-## Trigger
+## A. 触发与类型
 
-- [ ] The user really wants a course outline or outline revision
-- [ ] `Type A` or `Type B` is clear
-- [ ] The 4 blocking inputs are present or reasonably assumed
+- [ ] 用户确实要课纲、课纲改造或定制课纲
+- [ ] 已判断 `Type A` 或 `Type B`
+- [ ] 4 个阻塞信息已获得或已合理假设：客户/行业、学员/岗位、时长、工具限制/合规限制
 
-## Structure
+## B. 结构
 
-- [ ] The agenda follows the four fixed sections in the right order
-- [ ] Client-facing wording is used
-- [ ] Internal labels are not exposed
+- [ ] 章节顺序符合 `Type A` / `Type B` 约定
+- [ ] 前部精简，没有塞入课程亮点、工具长清单、课前准备
+- [ ] 第三章使用四段式，顺序正确且无缺段
+- [ ] 客户可见标题使用中性专业表达
 
-## Content
+## C. 内容
 
-- [ ] Industry tasks are real and relevant
-- [ ] Every practical module includes 讲解要点 / 演示 / 学员练习 / 产出物
-- [ ] At least one reusable template or method is included
-- [ ] No tea break, voting, icebreaker, or unrelated operations are inserted
+- [ ] 行业案例、练习、产出物贴近客户真实业务
+- [ ] 至少体现 3 个客户行业真实任务
+- [ ] 每个实战模块都包含：讲解要点 / 演示 / 学员练习 / 产出物
+- [ ] 至少 1 处体现“存模板”
+- [ ] 第三部分体现从单点工具到完整工作流
+- [ ] 第四部分包含 1 周 / 1 月 / 3 月行动卡
 
-## Tools
+## D. 风格
 
-- [ ] Tools fit device and compliance limits
-- [ ] Each module has at most 1 primary tool and 1 backup tool
-- [ ] PPT scenarios prefer iSlide and 智谱GLM
+- [ ] 未暴露 `大展宏图`、`BOBO-123`、`AI First` 等内部术语
+- [ ] 未写茶歇、小互动、投票、破冰
+- [ ] 没有空泛概念堆砌，内容以实战为主
+- [ ] 标题层级不过深，正文便于甲方直接阅读
 
-## Delivery
+## E. 工具与合规
 
-- [ ] Time allocation matches the total duration
-- [ ] The full outline is in Markdown
-- [ ] 3-5 confirmation items are listed at the end when needed
-- [ ] If final delivery is requested, Word assets from `delivery-pack/` are used
-- [ ] If PDF is requested, a valid PDF path or conversion step is provided
-- [ ] Images are preserved when generating client-facing Word files
+- [ ] 工具符合终端环境和合规要求
+- [ ] 每模块最多 1 个主工具 + 1 个备选工具
+- [ ] PPT 场景只写 `iSlide`、`智谱GLM`
+- [ ] 国产可用优先
+
+## F. 交付
+
+- [ ] 模块时长加总等于总时长
+- [ ] 已按 `OUTPUT-FORMAT.md` 输出完整 Markdown
+- [ ] 结尾保留了 3-5 个 `待确认项`
+- [ ] 如需最终交付，已使用 `delivery-pack/` 的样式、脚本和图片
+- [ ] 如需 PDF，已提供有效 PDF 转换步骤
