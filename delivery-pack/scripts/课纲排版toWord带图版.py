@@ -384,7 +384,7 @@ def convert_md_to_docx(input_path, output_path):
             finish_section()
             current_section = text
         handlers[kind](doc, text)
-        if kind == 'h2' and ('课程大纲' in text or '课程产出' in text or '课程现场' in text):
+        if kind == 'h2' and any(label in text for label in ['课程大纲', '课程产出', '课程现场', '课后准备']):
             doc.paragraphs[-1].paragraph_format.page_break_before = True
         if kind == 'paragraph' and re.match(r'^\*\*(模块\d+|加餐：)', text):
             doc.paragraphs[-1].paragraph_format.keep_with_next = True
@@ -392,6 +392,7 @@ def convert_md_to_docx(input_path, output_path):
     finish_section()
     for para in doc.paragraphs:
         para.paragraph_format.widow_control = True
+        para.paragraph_format.keep_together = True
         para.paragraph_format.line_spacing = 1.1
         if any(r._r.xpath('.//w:drawing') for r in para.runs):
             para.paragraph_format.keep_with_next = True
