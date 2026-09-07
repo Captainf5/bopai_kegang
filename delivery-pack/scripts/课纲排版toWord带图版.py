@@ -315,7 +315,7 @@ def add_table(doc, table_lines):
     table = doc.add_table(rows=len(rows), cols=len(rows[0]))
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     table.autofit = False
-    widths = [2.6, 7.0, 6.0] if len(rows[0]) == 3 else [15.6 / len(rows[0])] * len(rows[0])
+    widths = [3.2, 6.8, 5.6] if len(rows[0]) == 3 else [15.6 / len(rows[0])] * len(rows[0])
     for col, width in zip(table.columns, widths):
         col.width = Cm(width)
     for row in table.rows:
@@ -330,6 +330,9 @@ def add_table(doc, table_lines):
                 raise ValueError('表格列数不一致')
             cell = table.cell(i, j)
             para = cell.paragraphs[0]
+            para.paragraph_format.space_before = Pt(3)
+            para.paragraph_format.space_after = Pt(3)
+            para.paragraph_format.line_spacing = 1.1
             para.alignment = WD_ALIGN_PARAGRAPH.CENTER if i == 0 else WD_ALIGN_PARAGRAPH.LEFT
             
             # 设置单元格样式
@@ -381,7 +384,7 @@ def convert_md_to_docx(input_path, output_path):
             finish_section()
             current_section = text
         handlers[kind](doc, text)
-        if kind == 'h2' and ('课程大纲' in text or '课件展示' in text):
+        if kind == 'h2' and ('课程大纲' in text or '课程产出' in text or '课程现场' in text):
             doc.paragraphs[-1].paragraph_format.page_break_before = True
         if kind == 'paragraph' and re.match(r'^\*\*(模块\d+|加餐：)', text):
             doc.paragraphs[-1].paragraph_format.keep_with_next = True
