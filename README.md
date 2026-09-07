@@ -7,8 +7,10 @@
 ## 本次成果
 
 - [WorkBuddy职场办公两天课纲](outputs/WorkBuddy职场办公实战工作坊-2D.md)
+- [下载带图Word](outputs/WorkBuddy职场办公实战工作坊-2D_带图.docx?raw=true) · [查看或下载PDF](outputs/WorkBuddy职场办公实战工作坊-2D_带图.pdf?raw=true)
 - [Skill入口](SKILL.md)、[十份核心课纲](references/README.md)、[表达与排版标杆](references/STYLE-BENCHMARK.md)
 - [课程研发方法](大展宏图方法论.md)、[交付检查表](CHECKLIST.md)
+- [本次实测与验收范围](VERIFICATION.md)：最终8页PDF已逐页检查，手机与电脑使用同一个文件。
 
 ## 手机怎么用
 
