@@ -1,55 +1,31 @@
-# Delivery Workflow
+# 课纲交付流程
 
-## Goal
+## 手机
 
-Turn the final Markdown outline into client-ready delivery assets.
+按根目录[MOBILE-WORKFLOW.md](../MOBILE-WORKFLOW.md)操作：手机AI读取同源加载包并写稿，GitHub表单接收完整Markdown，Actions生成Word和PDF下载包。无需本地Word或电脑开机。
 
-## Included Assets
+## 电脑
 
-- `STYLE-GUIDE-WORD.md`: enterprise Word styling rules
-- `HTML-CARD-PROMPT.md`: HTML card delivery prompt
-- `公文写作规范.md`: backup writing rules for formal client scenarios
-- `课纲模板.docx`: base Word template
-- `images/`: lecturer, slides, and training scene images
-- `scripts/课纲排版toWord带图版.py`: Markdown to Word with images
-- `scripts/docx_to_pdf.py`: Word to PDF helper
+安装依赖 `pip install -r delivery-pack/requirements.txt`。
 
-## Word Delivery
-
-From the package root:
+生成Word：
 
 ```bash
-python delivery-pack/scripts/课纲排版toWord带图版.py --input "your-outline.md"
+python delivery-pack/scripts/课纲排版toWord带图版.py --input "课纲.md"
 ```
 
-This generates:
+模板为同目录的“课纲模板.docx”，由用户认可样稿去除客户正文、缩略图与个人元数据派生；保留样式、主题和编号。图片均与仓库已有公开素材逐字节核对。
 
-```text
-your-outline_带图.docx
-```
-
-## PDF Delivery
-
-If the environment supports `docx2pdf` and has Word conversion capability:
+本地PDF助手仍支持已安装Word的环境：
 
 ```bash
-python delivery-pack/scripts/docx_to_pdf.py --input "your-outline_带图.docx"
+python delivery-pack/scripts/docx_to_pdf.py --input "课纲_带图.docx"
 ```
 
-This generates:
+若Word启动失败，不把本地导出能力当作移动流程依赖；直接使用云端排版。云端Linux使用requirements-cloud.txt、LibreOffice和Noto中文字体，不依赖Windows COM。
 
-```text
-your-outline_带图.pdf
-```
+## 一致性与检查
 
-## HTML Delivery
+同一份MD＋Skill＋模板生成Word，再统一导出PDF。手机和电脑都看此PDF，不能分别导出再比较。Word可编辑，手机阅读模式可能重排。
 
-If the user wants a shareable or screenshot-friendly format, follow:
-
-- `HTML-CARD-PROMPT.md`
-
-## Notes
-
-- Keep `images/` beside the script folder so image insertion works
-- Word generation depends on `python-docx`
-- PDF generation depends on `docx2pdf` and a supported local environment
+正式交付前检查全部页面；修改内容或版式后重新渲染。清单与规则见根目录CHECKLIST.md。下载包内render-result.json记录PDF页数和SHA256，仅用于内部校验，不写进客户正文。

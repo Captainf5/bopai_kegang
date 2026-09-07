@@ -16,6 +16,8 @@
 import argparse
 import os
 import re
+import zipfile
+from pathlib import Path
 from docx import Document
 from docx.shared import Pt, Cm, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -76,6 +78,7 @@ def add_caption(doc, text):
     para.alignment = WD_ALIGN_PARAGRAPH.CENTER
     para.paragraph_format.space_before = Pt(2)
     para.paragraph_format.space_after = Pt(6)
+    para.paragraph_format.keep_with_next = False
     run = para.add_run(text)
     set_font(run, size=9, color=GRAY)
 
@@ -181,6 +184,7 @@ def add_h1(doc, text):
     para._p.get_or_add_pPr().append(shading)
     para.paragraph_format.space_before = Pt(12)
     para.paragraph_format.space_after = Pt(12)
+    para.paragraph_format.keep_with_next = True
     run = para.add_run(text)
     set_font(run, size=18, bold=True, color=WHITE)
 
@@ -196,6 +200,7 @@ def add_h2(doc, text):
     para = doc.add_paragraph()
     para.paragraph_format.space_before = Pt(18)
     para.paragraph_format.space_after = Pt(6)
+    para.paragraph_format.keep_with_next = True
     run = para.add_run(text)
     set_font(run, size=16, bold=True, color=ORANGE)
 
@@ -204,6 +209,9 @@ def add_h3(doc, text):
     para = doc.add_paragraph()
     para.paragraph_format.space_before = Pt(12)
     para.paragraph_format.space_after = Pt(6)
+    para.paragraph_format.keep_with_next = True
+    if text.startswith(('第二天', 'Day 2', '第三天', 'Day 3')):
+        para.paragraph_format.page_break_before = True
     pPr = para._p.get_or_add_pPr()
     pBdr = parse_xml(
         f'<w:pBdr {nsdecls("w")}>'
@@ -219,6 +227,7 @@ def add_h4(doc, text):
     para = doc.add_paragraph()
     para.paragraph_format.space_before = Pt(18)
     para.paragraph_format.space_after = Pt(3)
+    para.paragraph_format.keep_with_next = True
     run = para.add_run(text)
     set_font(run, size=12, bold=True, color=BLACK)
 
@@ -227,6 +236,7 @@ def add_h5(doc, text):
     para = doc.add_paragraph()
     para.paragraph_format.space_before = Pt(18)
     para.paragraph_format.space_after = Pt(3)
+    para.paragraph_format.keep_with_next = True
     run = para.add_run(text)
     set_font(run, size=11, bold=True, color=BLACK)
 
@@ -304,9 +314,20 @@ def add_table(doc, table_lines):
     # 创建表格
     table = doc.add_table(rows=len(rows), cols=len(rows[0]))
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    table.autofit = False
+    widths = [2.6, 7.0, 6.0] if len(rows[0]) == 3 else [15.6 / len(rows[0])] * len(rows[0])
+    for col, width in zip(table.columns, widths):
+        col.width = Cm(width)
+    for row in table.rows:
+        row._tr.get_or_add_trPr().append(parse_xml(f'<w:cantSplit {nsdecls("w")}/>'))
+        for cell,width in zip(row.cells,widths):
+            cell.width = Cm(width)
+    table.rows[0]._tr.get_or_add_trPr().append(parse_xml(f'<w:tblHeader {nsdecls("w")}/>'))
     
     for i, row_data in enumerate(rows):
         for j, cell_text in enumerate(row_data):
+            if j >= len(rows[0]):
+                raise ValueError('表格列数不一致')
             cell = table.cell(i, j)
             para = cell.paragraphs[0]
             para.alignment = WD_ALIGN_PARAGRAPH.CENTER if i == 0 else WD_ALIGN_PARAGRAPH.LEFT
@@ -332,133 +353,65 @@ def add_table(doc, table_lines):
     doc.add_paragraph()  # 表格后间距
 
 def convert_md_to_docx(input_path, output_path):
-    """转换 Markdown 到 Word"""
-    print("=" * 50)
-    print("课纲排版 - Markdown 转 Word（带图片版）")
-    print("=" * 50)
-    
-    # 读取 Markdown
-    with open(input_path, 'r', encoding='utf-8') as f:
-        md_content = f.read()
-    
-    # 解析 Markdown
+    """One reference-derived template for local and cloud generation."""
+    md_content = Path(input_path).read_text(encoding='utf-8-sig')
+    if len(md_content) > 100000:
+        raise ValueError('课纲过长，请控制在100000字符以内')
     elements = parse_markdown(md_content)
-    
-    # 创建 Word 文档
-    doc = Document()
-    
-    # 设置页面边距
+    template = Path(SCRIPT_DIR).parent / '课纲模板.docx'
+    doc = Document(str(template))
+    # The retained package supplies styles, numbering, media, and page geometry.
+    for child in list(doc._element.body):
+        if child.tag != qn('w:sectPr'):
+            doc._element.body.remove(child)
+    current_section = ''
+    def finish_section():
+        if '主讲人介绍' in current_section:
+            add_centered_image(doc, find_image('lecturer'), 10, IMAGE_CAPTIONS['lecturer'])
+        elif '课件展示' in current_section:
+            add_centered_image(doc, find_image('slides'), 14, '（历史课件示例）')
+        elif '课程现场' in current_section:
+            add_image_row(doc, [find_image('scene1'), find_image('scene2')], 7)
+            add_image_row(doc, [find_image('scene3'), find_image('scene4')], 7, IMAGE_CAPTIONS['scenes'])
+    handlers = {'h1':add_h1, 'subtitle':add_subtitle, 'h2':add_h2, 'h3':add_h3,
+                'h4':add_h4, 'h5':add_h5, 'quote':add_quote, 'bullet':add_bullet,
+                'numbered':add_numbered, 'paragraph':add_paragraph, 'table':add_table}
+    for kind, text in elements:
+        if kind == 'h2':
+            finish_section()
+            current_section = text
+        handlers[kind](doc, text)
+        if kind == 'h2' and ('课程大纲' in text or '课件展示' in text):
+            doc.paragraphs[-1].paragraph_format.page_break_before = True
+        if kind == 'paragraph' and re.match(r'^\*\*(模块\d+|加餐：)', text):
+            doc.paragraphs[-1].paragraph_format.keep_with_next = True
+            doc.paragraphs[-1].paragraph_format.space_before = Pt(12)
+    finish_section()
+    for para in doc.paragraphs:
+        para.paragraph_format.widow_control = True
+        para.paragraph_format.line_spacing = 1.1
+        if any(r._r.xpath('.//w:drawing') for r in para.runs):
+            para.paragraph_format.keep_with_next = True
+    for table in doc.tables:
+        for row in table.rows:
+            if not row._tr.xpath('./w:trPr/w:cantSplit'):
+                row._tr.get_or_add_trPr().append(parse_xml(f'<w:cantSplit {nsdecls("w")}/>'))
     for section in doc.sections:
-        section.top_margin = Cm(2.5)
-        section.bottom_margin = Cm(2)
-        section.left_margin = Cm(2.5)
-        section.right_margin = Cm(2.5)
-    
-    # 图片插入标记
-    inserted_images = {
-        'lecturer': False,
-        'slides': False,
-        'scenes': False,
-        'computer': False,
-    }
-    current_section = ""
-    
-    # 渲染内容
-    for elem_type, content in elements:
-        # 跟踪当前章节
-        if elem_type == 'h2':
-            current_section = content
-            
-            # 在进入新章节前，检查是否需要插入图片
-            if '主讲人介绍' in current_section and not inserted_images['lecturer']:
-                pass  # 在章节内容后插入
-        
-        # 渲染元素
-        if elem_type == 'h1':
-            add_h1(doc, content)
-        elif elem_type == 'subtitle':
-            add_subtitle(doc, content)
-        elif elem_type == 'h2':
-            # 在章节标题前，检查上一章节是否需要插入图片
-            add_h2(doc, content)
-        elif elem_type == 'h3':
-            # 检查上一个 h3 是否是特定章节，需要插入图片
-            add_h3(doc, content)
-        elif elem_type == 'h4':
-            add_h4(doc, content)
-        elif elem_type == 'h5':
-            add_h5(doc, content)
-        elif elem_type == 'quote':
-            add_quote(doc, content)
-        elif elem_type == 'bullet':
-            add_bullet(doc, content)
-            # 在主讲人介绍的列表后插入讲师照片
-            if '主讲人介绍' in current_section and not inserted_images['lecturer']:
-                # 检查是否是最后一个列表项（通过内容判断）
-                if '有成果' in content or '愿景' in content or '交付' in content:
-                    pass  # 等列表结束后插入
-            # 在"电脑"相关内容后插入电脑配置图片
-            if ('电脑' in content or 'HDMI' in content) and not inserted_images['computer']:
-                print("\n📷 插入电脑配置...")
-                if add_centered_image(doc, find_image('computer'), 12, IMAGE_CAPTIONS.get('computer')):
-                    inserted_images['computer'] = True
-                    print("  ✓ 电脑配置已插入")
-        elif elem_type == 'numbered':
-            add_numbered(doc, content)
-        elif elem_type == 'paragraph':
-            add_paragraph(doc, content)
-            # 在主讲人介绍的段落后插入讲师照片
-            if '主讲人介绍' in current_section and not inserted_images['lecturer']:
-                if '交付' in content or '好评率' in content or '客户' in content:
-                    print("\n📷 插入讲师照片...")
-                    if add_centered_image(doc, find_image('lecturer'), 10, IMAGE_CAPTIONS.get('lecturer')):
-                        inserted_images['lecturer'] = True
-                        print("  ✓ 讲师照片已插入")
-        elif elem_type == 'table':
-            add_table(doc, content)
-        
-        # 检查是否需要在章节后插入图片
-        if elem_type == 'h2':
-            # 课件展示章节
-            if '课件展示' in content or '五、' in content:
-                print("\n📷 插入课件展示...")
-                if add_centered_image(doc, find_image('slides'), 14, IMAGE_CAPTIONS.get('slides')):
-                    inserted_images['slides'] = True
-                    print("  ✓ 课件展示已插入")
-            
-            # 课程现场章节
-            if '课程现场' in content or '六、' in content:
-                print("\n📷 插入课程现场照片...")
-                row1 = add_image_row(doc, [find_image('scene1'), find_image('scene2')], 7)
-                row2 = add_image_row(doc, [find_image('scene3'), find_image('scene4')], 7, IMAGE_CAPTIONS.get('scenes'))
-                if row1 or row2:
-                    inserted_images['scenes'] = True
-                    print("  ✓ 课程现场照片已插入")
-            
-            # 培训准备/课前准备章节
-            if '培训准备' in content or '现场准备' in content or '课前准备' in content:
-                # 电脑配置图片放在章节末尾，后面处理
-                pass
-    
-    # 在文档末尾检查是否还有未插入的图片（备用，正常情况下应已在“电脑”内容后插入）
-    if not inserted_images['computer']:
-        print("\n📷 插入电脑配置（备用位置）...")
-        if add_centered_image(doc, find_image('computer'), 12, IMAGE_CAPTIONS.get('computer')):
-            inserted_images['computer'] = True
-            print("  ✓ 电脑配置已插入")
-    
-    # 保存文档
+        section.page_width = Pt(612)
+        section.page_height = Pt(792)
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     doc.save(output_path)
-    
-    print("\n" + "=" * 50)
-    print(f"✅ 转换完成：{output_path}")
-    print("=" * 50)
-    
-    # 汇总插入的图片
-    print("\n图片插入情况：")
-    for key, inserted in inserted_images.items():
-        status = "✓" if inserted else "✗"
-        print(f"  {status} {key}")
+    # python-docx rewrites several untouched package parts; preserve those exactly.
+    preserve = ['word/styles.xml', 'word/stylesWithEffects.xml', 'word/numbering.xml', 'word/theme/theme1.xml']
+    with zipfile.ZipFile(template) as z:
+        originals = {n:z.read(n) for n in preserve if n in z.namelist()}
+    with zipfile.ZipFile(output_path) as z:
+        parts = {n:z.read(n) for n in z.namelist()}
+    parts.update(originals)
+    with zipfile.ZipFile(output_path, 'w', zipfile.ZIP_DEFLATED) as z:
+        for name,data in parts.items():
+            z.writestr(name,data)
+    print(f'Word已生成：{output_path}')
 
 def main():
     parser = argparse.ArgumentParser(description='课纲排版 - Markdown 转 Word（带图片版）')
