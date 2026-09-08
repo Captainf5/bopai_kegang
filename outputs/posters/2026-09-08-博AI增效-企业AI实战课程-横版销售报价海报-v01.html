@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2026 博AI增效｜企业AI实战课程</title>
+  <style>
+    :root {
+      --red: #ff3b30;
+      --red-deep: #c81d25;
+      --ink: #1d1d1f;
+      --muted: #6e6e73;
+      --line: rgba(29, 29, 31, 0.09);
+      --paper: rgba(255, 255, 255, 0.955);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      overflow: hidden;
+      background: #090909;
+    }
+
+    body {
+      font-family: "SF Pro Display", "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: white;
+    }
+
+    .poster {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      padding: 44px 58px 36px;
+      display: grid;
+      grid-template-rows: 174px 672px 106px;
+      gap: 18px;
+      isolation: isolate;
+      background-image:
+        linear-gradient(180deg, rgba(8, 8, 9, 0.26), rgba(8, 8, 9, 0.18)),
+        url("assets/red-keynote-background-v1.png");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 88% 2%, rgba(255, 92, 84, 0.25), transparent 28%),
+        linear-gradient(90deg, rgba(7, 7, 8, 0.78) 0%, rgba(7, 7, 8, 0.34) 48%, rgba(7, 7, 8, 0.52) 100%);
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 1.28fr 0.72fr;
+      align-items: start;
+      gap: 44px;
+      overflow: hidden;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 5px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 30px;
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff645b, #ff2d20);
+      box-shadow: 0 0 24px rgba(255, 59, 48, 0.7);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 56px;
+      line-height: 1.06;
+      letter-spacing: -0.045em;
+      font-weight: 730;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 21px;
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+    }
+
+    .proof {
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 15px;
+      letter-spacing: 0.025em;
+    }
+
+    .header-right {
+      justify-self: end;
+      width: 100%;
+      max-width: 590px;
+      padding-top: 5px;
+    }
+
+    .quote-chip {
+      margin-left: auto;
+      width: max-content;
+      padding: 10px 17px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(18px);
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: 0.05em;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 23px;
+    }
+
+    .value {
+      padding: 13px 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, 0.075);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 16px;
+      font-weight: 600;
+      backdrop-filter: blur(14px);
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      position: relative;
+      min-width: 0;
+      padding: 17px 20px 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      border-radius: 24px;
+      background: var(--paper);
+      box-shadow:
+        0 14px 38px rgba(0, 0, 0, 0.21),
+        inset 0 1px 0 rgba(255, 255, 255, 0.96);
+      color: var(--ink);
+    }
+
+    .card::after {
+      content: attr(data-index);
+      position: absolute;
+      right: 16px;
+      bottom: -14px;
+      color: rgba(200, 29, 37, 0.055);
+      font-size: 88px;
+      line-height: 1;
+      font-weight: 760;
+      letter-spacing: -0.07em;
+      pointer-events: none;
+    }
+
+    .card-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .direction {
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(255, 59, 48, 0.11);
+      color: var(--red-deep);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .duration {
+      color: #424245;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .course-name {
+      position: relative;
+      z-index: 1;
+      margin: 9px 0 6px;
+      font-size: 25px;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      font-weight: 730;
+    }
+
+    .version {
+      color: var(--red-deep);
+      font-size: 13px;
+      font-weight: 680;
+      letter-spacing: 0.015em;
+    }
+
+    .problem {
+      position: relative;
+      z-index: 1;
+      margin: 7px 0 0;
+      padding-top: 7px;
+      border-top: 1px solid var(--line);
+      color: #424245;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .problem b {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .software {
+      position: absolute;
+      z-index: 1;
+      left: 20px;
+      right: 20px;
+      bottom: 14px;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.3;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .software b {
+      color: #424245;
+      font-weight: 700;
+    }
+
+    .footer {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      align-items: center;
+      gap: 30px;
+      padding: 14px 22px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 24px;
+      background: linear-gradient(112deg, rgba(255, 68, 58, 0.92), rgba(166, 17, 27, 0.94));
+      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      overflow: hidden;
+    }
+
+    .footer::after {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      right: -170px;
+      top: -250px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      filter: blur(1px);
+    }
+
+    .quote-title {
+      margin: 0 0 3px;
+      font-size: 23px;
+      font-weight: 740;
+      letter-spacing: -0.015em;
+    }
+
+    .quote-copy {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .cta {
+      position: relative;
+      z-index: 1;
+      justify-self: end;
+      text-align: right;
+    }
+
+    .cta-main {
+      margin: 0 0 7px;
+      font-size: 18px;
+      font-weight: 680;
+    }
+
+    .cta-tags {
+      display: flex;
+      justify-content: flex-end;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .cta-tags span {
+      padding: 5px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .fine-print {
+      position: absolute;
+      left: 60px;
+      bottom: 10px;
+      z-index: 3;
+      color: rgba(255, 255, 255, 0.44);
+      font-size: 10px;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="poster" aria-label="博AI增效企业AI实战课程销售报价海报">
+    <header class="header">
+      <section>
+        <p class="eyebrow">2026 博AI增效｜企业AI实战课程</p>
+        <h1>让 AI 真正进入岗位</h1>
+        <p class="subtitle">从办公提效到业务智能体。现场实操，成果可带走、可核验、可继续使用。</p>
+        <p class="proof">冯博 Gatsby 主讲｜2024年至今，已为超过200家头部公司完成AI课程交付</p>
+      </section>
+      <section class="header-right">
+        <div class="quote-chip">企业定制报价</div>
+        <div class="value-grid">
+          <div class="value">真实业务</div>
+          <div class="value">边讲边练</div>
+          <div class="value">成果交付</div>
+          <div class="value">安全可控</div>
+        </div>
+      </section>
+    </header>
+
+    <section class="course-grid">
+      <article class="card" data-index="01">
+        <div class="card-head"><span class="direction">办公增效</span><span class="duration">1天 / 2天</span></div>
+        <h2 class="course-name">10倍职场办公</h2>
+        <div class="version">畅销版 / 两天实战版</div>
+        <p class="problem"><b>解决：</b>AI只会问答，文档、数据与汇报仍靠人工拼接。</p>
+        <div class="software"><b>软件：</b>WorkBuddy · 豆包/DeepSeek · Office/WPS</div>
+      </article>
+
+      <article class="card" data-index="02">
+        <div class="card-head"><span class="direction">数据分析</span><span class="duration">1天</span></div>
+        <h2 class="course-name">10倍职场办公·数据版</h2>
+        <p class="problem"><b>解决：</b>多表整理慢、数据口径不一、分析结论难核验。</p>
+        <div class="software"><b>软件：</b>Excel · 豆包/DeepSeek</div>
+      </article>
+
+      <article class="card" data-index="03">
+        <div class="card-head"><span class="direction">管理增长</span><span class="duration">1天</span></div>
+        <h2 class="course-name">面向管理者的AI增长进阶课</h2>
+        <p class="problem"><b>解决：</b>看不清AI技术走向，也缺少可执行的业务试点路径。</p>
+        <div class="software"><b>软件：</b>WorkBuddy · Excel/WPS · 浏览器</div>
+      </article>
+
+      <article class="card" data-index="04">
+        <div class="card-head"><span class="direction">营销增长</span><span class="duration">1天</span></div>
+        <h2 class="course-name">10倍AI营销引擎</h2>
+        <p class="problem"><b>解决：</b>内容生产慢，文案、视觉与视频缺少统一主线。</p>
+        <div class="software"><b>软件：</b>即梦 · 剪映 · 豆包/DeepSeek</div>
+      </article>
+
+      <article class="card" data-index="05">
+        <div class="card-head"><span class="direction">智能体与自动化</span><span class="duration">1天 / 2天</span></div>
+        <h2 class="course-name">10倍业务型智能体</h2>
+        <div class="version">极速版 / 进阶版</div>
+        <p class="problem"><b>解决：</b>高频流程依赖人工重复执行，经验难以复用和交接。</p>
+        <div class="software"><b>软件：</b>扣子 · WorkBuddy · Codex（进阶）</div>
+      </article>
+
+      <article class="card" data-index="06">
+        <div class="card-head"><span class="direction">飞书协同</span><span class="duration">1天</span></div>
+        <h2 class="course-name">飞书AI实战课</h2>
+        <p class="problem"><b>解决：</b>知识、文档、数据与协作流程分散，AI能力难以串联。</p>
+        <div class="software"><b>软件：</b>飞书文档 · 多维表格 · 知识问答 · 智能纪要</div>
+      </article>
+
+      <article class="card" data-index="07">
+        <div class="card-head"><span class="direction">电力行业</span><span class="duration">1天</span></div>
+        <h2 class="course-name">电网AI办公增效实战</h2>
+        <p class="problem"><b>解决：</b>公文反复修改，台账整理与数据汇报耗时。</p>
+        <div class="software"><b>软件：</b>WorkBuddy · Word/WPS · Excel</div>
+      </article>
+
+      <article class="card" data-index="08">
+        <div class="card-head"><span class="direction">通讯行业</span><span class="duration">1天 / 2天</span></div>
+        <h2 class="course-name">通讯AI实战系列</h2>
+        <div class="version">政企前端 / 网格营销 / Token运营</div>
+        <p class="problem"><b>解决：</b>客户沟通、营销执行与运营复盘缺少岗位化方法。</p>
+        <div class="software"><b>软件：</b>WorkBuddy · Office/WPS · Excel · 即梦/剪映</div>
+      </article>
+
+      <article class="card" data-index="09">
+        <div class="card-head"><span class="direction">个人AI团队</span><span class="duration">半天</span></div>
+        <h2 class="course-name">OPC实战工作坊</h2>
+        <p class="problem"><b>解决：</b>个人或小团队事务繁杂，缺少安全、可控的AI助手落地路径。</p>
+        <div class="software"><b>软件：</b>OpenClaw · 本地文档工具</div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <section>
+        <h2 class="quote-title">企业定制报价</h2>
+        <p class="quote-copy">根据课程时长、参训人数、业务材料定制与课后支持范围确认。</p>
+      </section>
+      <section class="cta">
+        <p class="cta-main">提供 4 项信息，即可匹配课纲与正式报价</p>
+        <div class="cta-tags"><span>参训对象</span><span>人数</span><span>重点场景</span><span>计划日期</span></div>
+      </section>
+    </footer>
+    <div class="fine-print">课程将结合企业软件环境与数据安全要求确认最终工具路线；“10倍”为课程方法方向，不构成固定效果承诺。</div>
+  </main>
+</body>
+</html>
