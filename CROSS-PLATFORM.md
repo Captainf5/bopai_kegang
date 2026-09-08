@@ -6,7 +6,9 @@ Skill名称：`bopai-kegang`，显示名：博AI课纲。唯一维护源是[原�
 
 ### Codex
 
-只写课纲可下载[轻量写作Skill包](releases/bopai-kegang-authoring.zip?raw=true)；需要本地Word排版时使用[完整Skill包](releases/bopai-kegang.zip?raw=true)。解压后保留完整的 `bopai-kegang/` 文件夹，放入用户级 `.agents/skills/`。不要只复制SKILL.md，也不要在多个发现目录重复安装同名Skill。
+默认下载[完整Skill包](releases/bopai-kegang.zip?raw=true)。它同时包含写稿规则、13份当前课纲、Word模板、图片和排版脚本。解压后保留完整的 `bopai-kegang/` 文件夹，放入用户级 `.agents/skills/`。不要只复制SKILL.md，也不要在多个发现目录重复安装同名Skill。
+
+[纯写稿精简包](releases/bopai-kegang-authoring.zip?raw=true)只在客户端明确拒绝大包、且任务明确只交付Markdown时使用。它刻意不含Word模板、图片、Python脚本和本地排版能力，不能作为“完整排版版”安装证据。
 
 下一轮输入：
 
@@ -16,7 +18,7 @@ Skill名称：`bopai-kegang`，显示名：博AI课纲。唯一维护源是[原�
 
 ### WorkBuddy
 
-写稿优先导入轻量写作ZIP；需要WorkBuddy本地调用Word模板与排版脚本时再导入完整ZIP。确认技能包包含SKILL.md、references和13份`outputs/catalog`当前课纲；完整包另含delivery-pack。导入后在已安装技能中启用并选择“博AI课纲”；界面名称以当前版本为准。
+课程交付默认导入[完整Skill包](releases/bopai-kegang.zip?raw=true)。确认技能包包含SKILL.md、references、13份`outputs/catalog`当前课纲，以及`delivery-pack/课纲模板.docx`、`delivery-pack/images`和`delivery-pack/scripts`。导入后在已安装技能中启用并选择“博AI课纲”；界面名称以当前版本为准。只有明确只写Markdown时才改用纯写稿精简包。
 
 > 请调用博AI课纲（bopai-kegang），为【对象】制作【天数】的【主题】课程。按技能中的写法、参考和模板完成，先列关键词，保留完整实操内容，最后交付Markdown与带图Word；不能本地导出PDF时使用仓库云端排版入口。
 
@@ -32,14 +34,15 @@ Skill名称：`bopai-kegang`，显示名：博AI课纲。唯一维护源是[原�
 
 跨设备继续修改时，提供最新完整Markdown及新要求；Word/截图只作参考，不依赖另一个会话的隐含历史。手机语音只需讲清对象、时长、主题、场景和成果，缺关键方向才追问。
 
-手机写稿后，通过[排版表单](https://github.com/Captainf5/bopai_kegang/issues/new?template=course-render.yml)提交完整Markdown，在[云端记录](https://github.com/Captainf5/bopai_kegang/actions/workflows/render-course.yml)下载Word和PDF。它不要求办公室电脑开机；若选择手机遥控桌面WorkBuddy的路线，则电脑需要保持在线。
+手机写稿后，通过[排版表单](https://github.com/Captainf5/bopai_kegang/issues/new?template=course-render.yml)提交完整Markdown，在[云端记录](https://github.com/Captainf5/bopai_kegang/actions/workflows/render-course.yml)下载Word、PDF和`render-result.json`。云端固定调用仓库中的同一Word模板、同一主排版脚本和同一图片；电脑端也下载这一次运行的同一份PDF作为最终版。它不要求办公室电脑开机；若选择手机遥控桌面WorkBuddy的路线，则电脑需要保持在线。
 
 ## 维护与验收
 
 - 仓库更新规则→重建手机核心包、方向包、全量兼容包和两档ZIP→运行测试→经授权推送。发行文件不手改，不让手机附件或安装副本反向覆盖新源文件。
 - 使用新包更新已有安装前，核对是否存在本地自定义修改；有则保留并合并，不能直接覆盖。安装副本不是自动同步订阅，更新后需重新导入/同步。
 - 写稿不依赖Python、Word或特定连接器；本地排版按delivery-pack的依赖运行。没有本地渲染能力时用现有云端入口，不擅自替换模板。
-- Word可编辑；跨端固定分页以同一PDF为准，不能保证所有Word阅读模式不重排。
+- Word可编辑；跨端固定分页只以同一次云端运行的同一PDF为准，不能保证所有Word阅读模式不重排。本地Word或PDF可作预检，不作为跨设备一致性的完成证据。
+- 每个发行包都记录课程基线指纹和排版指纹。完整包必须内含指纹对应的模板、主脚本与图片；云端成品清单还记录源稿、Word、PDF哈希和逐页空白检查。缺少这些证据时不能声称完成严格排版。
 - 公开仓库与表单仅放通用、脱敏内容；发布和发送客户消息不是同一动作，均须遵守相应授权。
 - 包结构校验、安装文件存在、客户端能发现、附件完整读取和实际任务成功是不同层证据，不能互相冒充。“同水准”按同一质量门槛判断，不要求不同模型逐字一致。
 

@@ -238,6 +238,8 @@ def rendered_packs():
 
 
 def _mobile_manifest(rendered):
+    import layout_identity
+
     specs = {spec["output"]: spec for spec in pack_specs()}
     packs = {}
     for output, text in rendered.items():
@@ -262,6 +264,7 @@ def _mobile_manifest(rendered):
             "version": _path("VERSION").read_text(encoding="utf-8").strip(),
             "reference_basis": "outputs/catalog",
             "basis_sha256": course_basis_sha256(),
+            "layout_basis_sha256": layout_identity.layout_basis_sha256(),
             "packs": packs,
         },
         ensure_ascii=False,

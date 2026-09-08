@@ -1,6 +1,6 @@
 # 博AI课纲·手机全量兼容包
 
-Skill版本：v1.7.0
+Skill版本：v1.7.1
 
 仅用于支持大附件与长上下文的客户端。普通手机写稿优先使用核心规则包加一个方向包。
 
@@ -91,6 +91,7 @@ description: 研发、定制、修改与排版企业培训课纲和课程方案�
 
 - 输出 Markdown；需要排版时用同一程序生成带图 Word 与固定版式 PDF/预览。
 - Word 能编辑；固定版式预览确保手机与电脑看到相同分页。不能承诺所有手机 Word 阅读模式都逐像素相同。
+- 移动端最终排版是硬门槛：不得让手机AI自拟Word样式。确认完整Markdown后必须走仓库云端入口，由同一模板、主排版脚本和图片生成；手机与电脑使用同一次运行的同一PDF。没有取得Word、PDF及通过校验的`render-result.json`，只能报告写稿完成，不能报告排版或跨端一致完成。
 - 多日课程用醒目的日级分隔带区分，默认自然续排；只有客户明确要求每日起页或按日分文件时才强制分页。课程大纲、课程产出、课件展示、课程现场、课后准备与培训准备顺排。标题与下一段保持同页，但不得让普通章节整页锁定。
 - 使用 `CHECKLIST.md` 完成内容、时间、可执行性与视觉检查。逐页检查时既看空白页，也看只有一两行内容却留下大面积空白的低利用率页面；没有真实云端运行与手机宽度检查，不宣称移动流程已跑通。
 - 云端手机流程见 `MOBILE-WORKFLOW.md`。模型授权缺失时明确区分“AI写稿”与“云端排版”，不冒充自动生成能力。
@@ -2260,7 +2261,9 @@ Skill名称：`bopai-kegang`，显示名：博AI课纲。唯一维护源是[原�
 
 ### Codex
 
-只写课纲可下载[轻量写作Skill包](releases/bopai-kegang-authoring.zip?raw=true)；需要本地Word排版时使用[完整Skill包](releases/bopai-kegang.zip?raw=true)。解压后保留完整的 `bopai-kegang/` 文件夹，放入用户级 `.agents/skills/`。不要只复制SKILL.md，也不要在多个发现目录重复安装同名Skill。
+默认下载[完整Skill包](releases/bopai-kegang.zip?raw=true)。它同时包含写稿规则、13份当前课纲、Word模板、图片和排版脚本。解压后保留完整的 `bopai-kegang/` 文件夹，放入用户级 `.agents/skills/`。不要只复制SKILL.md，也不要在多个发现目录重复安装同名Skill。
+
+[纯写稿精简包](releases/bopai-kegang-authoring.zip?raw=true)只在客户端明确拒绝大包、且任务明确只交付Markdown时使用。它刻意不含Word模板、图片、Python脚本和本地排版能力，不能作为“完整排版版”安装证据。
 
 下一轮输入：
 
@@ -2270,7 +2273,7 @@ Skill名称：`bopai-kegang`，显示名：博AI课纲。唯一维护源是[原�
 
 ### WorkBuddy
 
-写稿优先导入轻量写作ZIP；需要WorkBuddy本地调用Word模板与排版脚本时再导入完整ZIP。确认技能包包含SKILL.md、references和13份`outputs/catalog`当前课纲；完整包另含delivery-pack。导入后在已安装技能中启用并选择“博AI课纲”；界面名称以当前版本为准。
+课程交付默认导入[完整Skill包](releases/bopai-kegang.zip?raw=true)。确认技能包包含SKILL.md、references、13份`outputs/catalog`当前课纲，以及`delivery-pack/课纲模板.docx`、`delivery-pack/images`和`delivery-pack/scripts`。导入后在已安装技能中启用并选择“博AI课纲”；界面名称以当前版本为准。只有明确只写Markdown时才改用纯写稿精简包。
 
 > 请调用博AI课纲（bopai-kegang），为【对象】制作【天数】的【主题】课程。按技能中的写法、参考和模板完成，先列关键词，保留完整实操内容，最后交付Markdown与带图Word；不能本地导出PDF时使用仓库云端排版入口。
 
@@ -2286,14 +2289,15 @@ Skill名称：`bopai-kegang`，显示名：博AI课纲。唯一维护源是[原�
 
 跨设备继续修改时，提供最新完整Markdown及新要求；Word/截图只作参考，不依赖另一个会话的隐含历史。手机语音只需讲清对象、时长、主题、场景和成果，缺关键方向才追问。
 
-手机写稿后，通过[排版表单](https://github.com/Captainf5/bopai_kegang/issues/new?template=course-render.yml)提交完整Markdown，在[云端记录](https://github.com/Captainf5/bopai_kegang/actions/workflows/render-course.yml)下载Word和PDF。它不要求办公室电脑开机；若选择手机遥控桌面WorkBuddy的路线，则电脑需要保持在线。
+手机写稿后，通过[排版表单](https://github.com/Captainf5/bopai_kegang/issues/new?template=course-render.yml)提交完整Markdown，在[云端记录](https://github.com/Captainf5/bopai_kegang/actions/workflows/render-course.yml)下载Word、PDF和`render-result.json`。云端固定调用仓库中的同一Word模板、同一主排版脚本和同一图片；电脑端也下载这一次运行的同一份PDF作为最终版。它不要求办公室电脑开机；若选择手机遥控桌面WorkBuddy的路线，则电脑需要保持在线。
 
 ## 维护与验收
 
 - 仓库更新规则→重建手机核心包、方向包、全量兼容包和两档ZIP→运行测试→经授权推送。发行文件不手改，不让手机附件或安装副本反向覆盖新源文件。
 - 使用新包更新已有安装前，核对是否存在本地自定义修改；有则保留并合并，不能直接覆盖。安装副本不是自动同步订阅，更新后需重新导入/同步。
 - 写稿不依赖Python、Word或特定连接器；本地排版按delivery-pack的依赖运行。没有本地渲染能力时用现有云端入口，不擅自替换模板。
-- Word可编辑；跨端固定分页以同一PDF为准，不能保证所有Word阅读模式不重排。
+- Word可编辑；跨端固定分页只以同一次云端运行的同一PDF为准，不能保证所有Word阅读模式不重排。本地Word或PDF可作预检，不作为跨设备一致性的完成证据。
+- 每个发行包都记录课程基线指纹和排版指纹。完整包必须内含指纹对应的模板、主脚本与图片；云端成品清单还记录源稿、Word、PDF哈希和逐页空白检查。缺少这些证据时不能声称完成严格排版。
 - 公开仓库与表单仅放通用、脱敏内容；发布和发送客户消息不是同一动作，均须遵守相应授权。
 - 包结构校验、安装文件存在、客户端能发现、附件完整读取和实际任务成功是不同层证据，不能互相冒充。“同水准”按同一质量门槛判断，不要求不同模型逐字一致。
 
@@ -2334,9 +2338,9 @@ python delivery-pack/scripts/docx_to_pdf.py --input "课纲_带图.docx"
 
 ## 一致性与检查
 
-同一份MD＋Skill＋模板生成Word，再统一导出PDF。手机和电脑都看此PDF，不能分别导出再比较。Word可编辑，手机阅读模式可能重排。
+同一份MD＋Skill＋模板生成Word，再统一导出PDF。正式跨设备成品以GitHub云端同一次运行的PDF为准：手机和电脑都下载这一个文件，不能分别导出再比较。本地Word/PDF仅作编辑与预检；Word阅读模式可能重排。
 
-正式交付前检查全部页面；修改内容或版式后重新渲染。清单与规则见根目录CHECKLIST.md。下载包内render-result.json记录PDF页数和SHA256，仅用于内部校验，不写进客户正文。
+正式交付前检查全部页面；修改内容或版式后重新渲染。清单与规则见根目录CHECKLIST.md。下载包内`render-result.json`会记录Skill版本、Git提交、源稿、模板、主排版脚本、整套排版资源、Word与PDF的SHA256，以及章节、表格、图片和逐页空白检查。清单仅用于内部校验，不写进客户正文。
 
 
 ---

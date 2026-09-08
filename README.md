@@ -23,7 +23,7 @@
 
 ## 手机怎么用
 
-同一Skill支持Codex与WorkBuddy。下载[完整便携Skill包](releases/bopai-kegang.zip?raw=true)，按[双工具与移动端使用说明](CROSS-PLATFORM.md)安装/导入；只写稿的手机入口可使用下面的同源附件。不需要新增办公插件才能写课纲。
+同一Skill支持Codex与WorkBuddy。默认下载[完整便携Skill包](releases/bopai-kegang.zip?raw=true)，它包含13份当前课纲、Word模板、7张配图和全部排版脚本；按[双工具与移动端使用说明](CROSS-PLATFORM.md)安装/导入。只写稿的手机入口可使用下面的同源附件，不需要新增办公插件。
 
 1. 下载[手机核心规则包](mobile/博AI课纲-手机核心规则包.md)，再按方向下载[通用办公与管理](mobile/博AI课纲-手机参考包-通用办公与管理.md)、[营销增长与智能体](mobile/博AI课纲-手机参考包-营销增长与智能体.md)或[行业专项](mobile/博AI课纲-手机参考包-行业专项.md)。把两个附件与客户需求一起上传。
 2. 让AI按包内规则生成完整Markdown，继续语音或文字修改；确认后复制全文到“手机排版入口”。
@@ -33,7 +33,9 @@
 
 ## 电脑怎么用
 
-只写稿时安装[轻量写作Skill包](releases/bopai-kegang-authoring.zip?raw=true)；需要本地Word排版时安装[完整Skill包](releases/bopai-kegang.zip?raw=true)。不要只复制SKILL.md。排版命令见[交付流程](delivery-pack/DELIVERY-WORKFLOW.md)，移动分包由脚本生成。
+Codex与WorkBuddy默认都安装[完整Skill包](releases/bopai-kegang.zip?raw=true)。[纯写稿精简包](releases/bopai-kegang-authoring.zip?raw=true)只在客户端明确拒绝大包、且只需要Markdown时使用；它不含Word模板、图片、Python脚本或本地排版能力。不要只复制SKILL.md。排版命令见[交付流程](delivery-pack/DELIVERY-WORKFLOW.md)，移动分包由脚本生成。
+
+需要跨设备严格一致时，手机和电脑都使用同一次GitHub云端运行生成的固定版式PDF。Word保留编辑用途，不能用不同客户端各自打开或另行转PDF后声称分页一致。下载包中的清单会记录源稿、模板、主排版脚本、Word与PDF的SHA256，且自动拦截纯空白页。
 
 ## 公开范围
 

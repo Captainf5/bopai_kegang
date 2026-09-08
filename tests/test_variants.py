@@ -15,7 +15,10 @@ class VariantTests(unittest.TestCase):
         cloud_spec.loader.exec_module(cloud)
         with tempfile.TemporaryDirectory(dir=ROOT) as tmp:
             md = Path(tmp)/'course.md'
-            md.write_text('# 路径测试\n\n## 课程大纲\n\n测试正文。', encoding='utf-8')
+            md.write_text(
+                (ROOT/'outputs/catalog/博AI增效-1D-10倍职场办公_6X畅销版.md').read_text(encoding='utf-8'),
+                encoding='utf-8',
+            )
             from os.path import relpath
             def stop_after_check(docx, pdf, soffice):
                 self.assertTrue(docx.is_absolute())

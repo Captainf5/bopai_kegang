@@ -26,6 +26,6 @@ python delivery-pack/scripts/docx_to_pdf.py --input "课纲_带图.docx"
 
 ## 一致性与检查
 
-同一份MD＋Skill＋模板生成Word，再统一导出PDF。手机和电脑都看此PDF，不能分别导出再比较。Word可编辑，手机阅读模式可能重排。
+同一份MD＋Skill＋模板生成Word，再统一导出PDF。正式跨设备成品以GitHub云端同一次运行的PDF为准：手机和电脑都下载这一个文件，不能分别导出再比较。本地Word/PDF仅作编辑与预检；Word阅读模式可能重排。
 
-正式交付前检查全部页面；修改内容或版式后重新渲染。清单与规则见根目录CHECKLIST.md。下载包内render-result.json记录PDF页数和SHA256，仅用于内部校验，不写进客户正文。
+正式交付前检查全部页面；修改内容或版式后重新渲染。清单与规则见根目录CHECKLIST.md。下载包内`render-result.json`会记录Skill版本、Git提交、源稿、模板、主排版脚本、整套排版资源、Word与PDF的SHA256，以及章节、表格、图片和逐页空白检查。清单仅用于内部校验，不写进客户正文。

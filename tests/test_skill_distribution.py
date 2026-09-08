@@ -18,6 +18,7 @@ sys.path.insert(0, str(SCRIPTS))
 
 import build_mobile_pack
 import build_skill_package
+import layout_identity
 
 
 EXPECTED_FAMILIES = {
@@ -112,10 +113,14 @@ class DistributionTests(unittest.TestCase):
     def test_mobile_manifest_hashes_match_rendered_packs_and_sources(self):
         build_mobile_pack.build(check=True)
         manifest = json.loads(build_mobile_pack.MANIFEST_PATH.read_text(encoding="utf-8"))
-        self.assertEqual(manifest["version"], "v1.7.0")
+        self.assertEqual(manifest["version"], "v1.7.1")
         self.assertEqual(manifest["reference_basis"], "outputs/catalog")
         self.assertEqual(
             manifest["basis_sha256"], build_mobile_pack.course_basis_sha256()
+        )
+        self.assertEqual(
+            manifest["layout_basis_sha256"],
+            layout_identity.layout_basis_sha256(),
         )
 
         rendered = build_mobile_pack.rendered_packs()
@@ -180,7 +185,7 @@ class DistributionTests(unittest.TestCase):
                 )
 
                 manifest = json.loads(archive.read("bopai-kegang/PACKAGE-MANIFEST.json"))
-                self.assertEqual(manifest["version"], "v1.7.0", flavor)
+                self.assertEqual(manifest["version"], "v1.7.1", flavor)
                 self.assertEqual(manifest["flavor"], flavor)
                 self.assertEqual(manifest["reference_basis"], "outputs/catalog")
                 self.assertEqual(
@@ -188,6 +193,27 @@ class DistributionTests(unittest.TestCase):
                     build_mobile_pack.course_basis_sha256(),
                     flavor,
                 )
+                self.assertEqual(
+                    manifest["layout_basis_sha256"],
+                    layout_identity.layout_basis_sha256(),
+                    flavor,
+                )
+                self.assertTrue(manifest["capabilities"]["markdown_authoring"], flavor)
+                self.assertTrue(manifest["capabilities"]["canonical_cloud_render"], flavor)
+                self.assertEqual(
+                    manifest["capabilities"]["embedded_word_layout_runtime"],
+                    flavor == "full",
+                    flavor,
+                )
+                self.assertEqual(
+                    manifest["capabilities"]["cross_device_fixed_layout"],
+                    "download_the_same_cloud_pdf",
+                    flavor,
+                )
+                if flavor == "full":
+                    self.assertIn("完整交付包", manifest["package_label"])
+                else:
+                    self.assertIn("纯写稿精简包", manifest["package_label"])
                 self.assertEqual(set(manifest["files"]), set(expected_paths), flavor)
                 for path, digest in manifest["files"].items():
                     self.assertEqual(
@@ -224,6 +250,7 @@ class DistributionTests(unittest.TestCase):
                 for required in [
                     "bopai-kegang/delivery-pack/课纲模板.docx",
                     "bopai-kegang/delivery-pack/scripts/课纲排版toWord带图版.py",
+                    "bopai-kegang/delivery-pack/scripts/layout_identity.py",
                     "bopai-kegang/delivery-pack/images/讲师照片1.png",
                     "bopai-kegang/delivery-pack/requirements.txt",
                 ]:
@@ -244,6 +271,17 @@ class DistributionTests(unittest.TestCase):
             entry = (package / "SKILL.md").read_text(encoding="utf-8")
             self.assertIn("name: bopai-kegang", entry)
             self.assertNotRegex(entry, r"[CDE]:[/\\]")
+
+    def test_default_links_do_not_misrepresent_the_authoring_package(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        cross_platform = (ROOT / "CROSS-PLATFORM.md").read_text(encoding="utf-8")
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("默认下载[完整便携Skill包]", readme)
+        self.assertIn("默认下载[完整Skill包]", cross_platform)
+        self.assertIn("课程交付默认导入[完整Skill包]", cross_platform)
+        self.assertIn("纯写稿精简包", readme)
+        self.assertIn("不含Word模板、图片、Python脚本", readme)
+        self.assertIn("同一次运行的同一PDF", skill)
 
 
 if __name__ == "__main__":

@@ -66,6 +66,7 @@ def source_files(flavor="full"):
 
 def payload(flavor="full"):
     import build_mobile_pack
+    import layout_identity
 
     files = {}
     for path in source_files(flavor):
@@ -78,9 +79,21 @@ def payload(flavor="full"):
         "name": "bopai-kegang",
         "version": (ROOT / "VERSION").read_text(encoding="utf-8").strip(),
         "flavor": flavor,
+        "package_label": (
+            "完整交付包（含Word模板、配图与排版脚本）"
+            if flavor == "full"
+            else "纯写稿精简包（仅Markdown，不含本地排版能力）"
+        ),
         "source": "https://github.com/Captainf5/bopai_kegang",
         "reference_basis": "outputs/catalog",
         "basis_sha256": build_mobile_pack.course_basis_sha256(),
+        "layout_basis_sha256": layout_identity.layout_basis_sha256(),
+        "capabilities": {
+            "markdown_authoring": True,
+            "embedded_word_layout_runtime": flavor == "full",
+            "canonical_cloud_render": True,
+            "cross_device_fixed_layout": "download_the_same_cloud_pdf",
+        },
         "files": {
             relative: hashlib.sha256(data).hexdigest()
             for relative, data in files.items()
