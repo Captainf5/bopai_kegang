@@ -291,8 +291,6 @@ def add_bullet(doc, text):
     para = doc.add_paragraph(style='List Bullet')
     para.paragraph_format.space_before = Pt(3)
     para.paragraph_format.space_after = Pt(3)
-    if text.startswith('**关键词：'):
-        para.paragraph_format.keep_with_next = True
     # 处理加粗文本
     parts = re.split(r'(\*\*[^*]+\*\*)', text)
     for part in parts:
@@ -420,8 +418,6 @@ def convert_md_to_docx(input_path, output_path):
             finish_section()
             current_section = text
         handlers[kind](doc, text)
-        if kind == 'h2' and any(label in text for label in ['课程大纲', '课程产出', '课程现场', '课后准备']):
-            doc.paragraphs[-1].paragraph_format.page_break_before = True
         if kind == 'paragraph' and re.match(r'^\*\*(模块\d+|加餐：)', text):
             doc.paragraphs[-1].paragraph_format.keep_with_next = True
             doc.paragraphs[-1].paragraph_format.space_before = Pt(12)
@@ -429,7 +425,6 @@ def convert_md_to_docx(input_path, output_path):
     drop_unused_image_relationships(doc)
     for para in doc.paragraphs:
         para.paragraph_format.widow_control = True
-        para.paragraph_format.keep_together = True
         para.paragraph_format.line_spacing = 1.1
         if any(r._r.xpath('.//w:drawing') for r in para.runs):
             para.paragraph_format.keep_with_next = True

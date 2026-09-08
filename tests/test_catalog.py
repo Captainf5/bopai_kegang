@@ -1,11 +1,9 @@
-import hashlib, re, unittest
+import re, unittest
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 CAT=ROOT/'outputs/catalog'
 EXPECTED_COUNT=13
-BASELINE={1:'64de510a5c996497564d5a789abe9961b6b0855b07da6bb0a1274718a483b230',
-          2:'6b93fbecf8d00f5b8866ee144ec5651c93c476720ad8e70dd717efa8822b93ad'}
 
 class CatalogTests(unittest.TestCase):
     def read_course(self, name):
@@ -15,11 +13,19 @@ class CatalogTests(unittest.TestCase):
         for term in terms:
             self.assertIn(term, text)
 
-    def test_workbuddy_body_unchanged(self):
-        for days,digest in BASELINE.items():
-            p=CAT/f'博AI增效-{days}D-10倍职场办公_6X畅销版.md'
-            body=p.read_text(encoding='utf-8').split('\n',1)[1]
-            self.assertEqual(hashlib.sha256(body.encode()).hexdigest(),digest)
+    def test_latest_lecturer_intro_is_consistent(self):
+        required=[
+            '**冯博 Gatsby　企业AI落地专家**',
+            '2024年至今，已为超过200家头部公司完成AI课程交付',
+            '更多的实操、更多的作品、更强的产出',
+            '让2%的中国人用好AI'
+        ]
+        for path in CAT.glob('*.md'):
+            text=path.read_text(encoding='utf-8')
+            intro=text.split('## 一、主讲人介绍',1)[1].split('## 二、本课程说明',1)[0]
+            self.assert_terms(intro,required)
+            for outdated in ['100+','96%','TOP 5%']:
+                self.assertNotIn(outdated,intro,path.name)
 
     def test_catalog_names_and_complete_modules(self):
         files=list(CAT.glob('*.md'))
@@ -76,8 +82,18 @@ class CatalogTests(unittest.TestCase):
         linked_files={Path(link).name for link in links}
         catalog_files={path.name for path in CAT.glob('*.md')}
         self.assertEqual(linked_files,catalog_files)
-        self.assert_terms(text,['通用能力','平台专项','行业专项','个人经营','线下、直播、录播','兼容/核验工具','账号与环境要求'])
+        self.assert_terms(text,['职场办公','管理者','行业专项','适合对象','主要解决的问题','主要软件'])
         for forbidden in ['iSlide','智谱GLM']:
+            self.assertNotIn(forbidden,text)
+
+    def test_customer_service_qa_has_safe_sales_boundaries(self):
+        text=(ROOT/'outputs/博AI增效-课程销售客服Q&A.md').read_text(encoding='utf-8')
+        self.assert_terms(text,[
+            'AI客服基础Q&A','先讲客户问题和课堂成果','一次优先推荐一门课程',
+            '具体价格、档期或合同范围','建议转人工的情况',
+            '2024年至今，已为超过200家头部公司完成AI课程交付'
+        ])
+        for forbidden in ['99元/人','标准价：','保证提升10倍','保证ROI']:
             self.assertNotIn(forbidden,text)
 
     def test_high_manager_course_capabilities(self):

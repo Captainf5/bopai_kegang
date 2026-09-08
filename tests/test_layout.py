@@ -18,6 +18,16 @@ class LayoutTests(unittest.TestCase):
     def test_day_two_new_page(self):
         day=next(p for p in self.doc.paragraphs if p.text.startswith("第二天"))
         self.assertTrue(day.paragraph_format.page_break_before)
+    def test_only_new_training_days_force_page_breaks(self):
+        ordinary_sections=['三、课程大纲','四、课程产出','五、课件展示','六、课程现场','七、课后准备','八、培训准备']
+        for title in ordinary_sections:
+            paragraph=next(p for p in self.doc.paragraphs if p.text==title)
+            self.assertFalse(bool(paragraph.paragraph_format.page_break_before),title)
+        day=next(p for p in self.doc.paragraphs if p.text.startswith("第二天"))
+        self.assertTrue(day.paragraph_format.page_break_before)
+    def test_body_paragraphs_may_flow_across_pages(self):
+        body=next(p for p in self.doc.paragraphs if p.text.startswith("讲解要点："))
+        self.assertFalse(bool(body.paragraph_format.keep_together))
     def test_module_headings_not_orphaned(self):
         modules=[p for p in self.doc.paragraphs if re.match(r"模块\d+：",p.text)]
         self.assertEqual(len(modules),8)

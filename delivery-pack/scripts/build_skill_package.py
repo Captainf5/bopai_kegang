@@ -7,7 +7,8 @@ OUTPUT = ROOT/'releases/bopai-kegang.zip'
 CORE = ['SKILL.md','WORKFLOW.md','OUTPUT-FORMAT.md','CHECKLIST.md','EXAMPLES.md',
         '大展宏图方法论.md','CROSS-PLATFORM.md','MOBILE-WORKFLOW.md','VERSION',
         'agents/openai.yaml','mobile/博AI课纲-手机加载包.md',
-        'outputs/博AI增效-课程销售矩阵.md']
+        'outputs/博AI增效-课程销售矩阵.md',
+        'outputs/博AI增效-课程销售客服Q&A.md']
 PATTERNS = ['references/*.md','outputs/catalog/*.md','feishu-pack/*.md','delivery-pack/*.md',
             'delivery-pack/requirements*.txt','delivery-pack/课纲模板.docx',
             'delivery-pack/scripts/*.py','delivery-pack/images/*.png','delivery-pack/images/README.md']

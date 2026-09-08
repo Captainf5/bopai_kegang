@@ -36,7 +36,7 @@ class VariantTests(unittest.TestCase):
                 doc = Document(out)
                 keywords = [p for p in doc.paragraphs if p.text.startswith('关键词：')]
                 self.assertEqual(len(keywords), count)
-                self.assertTrue(all(p.paragraph_format.keep_with_next for p in keywords))
+                self.assertTrue(all(not p.paragraph_format.keep_with_next for p in keywords))
                 self.assertEqual(source.count('- 讲解要点：'), count)
                 modules = re.split(r'\*\*模块\d+：', source)[1:]
                 self.assertIn('豆包', modules[0]); self.assertIn('DeepSeek', modules[0])
