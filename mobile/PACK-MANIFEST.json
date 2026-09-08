@@ -1,0 +1,307 @@
+{
+  "name": "bopai-kegang-mobile-packs",
+  "version": "v1.7.0",
+  "reference_basis": "outputs/catalog",
+  "basis_sha256": "904206d835713261143c7c64ebcb2cc9ad9fd12d16a6d24d11ea5d531af745c2",
+  "packs": {
+    "博AI课纲-手机核心规则包.md": {
+      "key": "core",
+      "characters": 19382,
+      "sha256": "da6ae379c8c71899712c0e83fc09b62891678e91ade21ba94ec167c2b9c0cfc9",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "dcbb5598c9831510f6fc912863b41e5253f713d94f270c0a1418e03f7d3c6cca"
+        },
+        {
+          "path": "WORKFLOW.md",
+          "sha256": "ba1ba9f2be5839a21d06b1b0f2800f98b7d8ef64b2c5ffb7aa654b2fb4e587d1"
+        },
+        {
+          "path": "OUTPUT-FORMAT.md",
+          "sha256": "ea6b06598efaa35dcd5365ea5c3218cb6413231dcb2fc9835d71e2e09483eecb"
+        },
+        {
+          "path": "CHECKLIST.md",
+          "sha256": "c3a1949ea9515e7283f114345a3524ea01d0d6b44499d96d4e165be20498854b"
+        },
+        {
+          "path": "references/CURRENT-COURSE-PACK.md",
+          "sha256": "e0bf9ebae8b84344cfbc31326b438286b3712223ad7a6f627d0e1d91b531daae"
+        },
+        {
+          "path": "references/STYLE-BENCHMARK.md",
+          "sha256": "1532a95d22fc44b76ff4fb8ee587f1ee9f01eef49c7ebab2bedd085e9d684964"
+        },
+        {
+          "path": "references/01-三天综合办公-语言标杆.md",
+          "sha256": "fb743e1e449eaf2f062a6d968d0dc14b7d66296c64551cd558751845e17ef9cc"
+        },
+        {
+          "path": "references/LECTURER.md",
+          "sha256": "ce7c5bf6a5f99c6b14f69faaecfa5ff51c61aef52d6dc847c87b8f8c9c5c8b28"
+        },
+        {
+          "path": "references/COURSE-CATALOG.md",
+          "sha256": "4e28f20c1ebab5b658156d10b6e081f17a597e0a33bd28d01675dc84cc7dba88"
+        },
+        {
+          "path": "大展宏图方法论.md",
+          "sha256": "29be671738ff6e4c65e25068439951e60693605f75c7ecd83ddae9712cffad41"
+        }
+      ]
+    },
+    "博AI课纲-手机参考包-通用办公与管理.md": {
+      "key": "office-management",
+      "characters": 25146,
+      "sha256": "e1f37a3b211c96ab0abdb756a7949b3d5a92b6308f50d3e841745b8f177cd4cb",
+      "sources": [
+        {
+          "path": "outputs/catalog/博AI增效-1D-10倍职场办公_6X畅销版.md",
+          "sha256": "d30febe64b7e5ea58b6ca30367eb1741cfb94f188a5b84bae5d8b84048e1a4b3"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-2D-10倍职场办公_6X畅销版.md",
+          "sha256": "e21bc9376485f50f088a72ab335cd536e7b844a0772a4674a82348d7e2ac516f"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-10倍职场办公_6X数据版.md",
+          "sha256": "0e8d2c2a15dd50c55f88ec4fcc241cef7bedf1ae85effa534eedaa793617e535"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-面向管理者的AI增长进阶课_6X高管版.md",
+          "sha256": "b6548324b47f862e6d6756d2f9e82de29902ddc28d59f27f5da74519a2bb343c"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-飞书AI实战课_6X飞书版.md",
+          "sha256": "bc2666c52e748a3881555e34ef99f4f18358b3330746dceb49fc28cf88b90445"
+        },
+        {
+          "path": "references/WORKBUDDY-COURSE.md",
+          "sha256": "e4d6f52ec9a3c823887f44b7724450c659c85d4bc20b34b82c22423a64f1fc0a"
+        },
+        {
+          "path": "references/08-HR与WorkBuddy-两天.md",
+          "sha256": "67463b70607aab713fc0f56e23507e0e043ccd73cc6a323d23cfb5d8ab36d683"
+        }
+      ]
+    },
+    "博AI课纲-手机参考包-营销增长与智能体.md": {
+      "key": "marketing-agent",
+      "characters": 13324,
+      "sha256": "ed4f5054d58d94a2c7b7a6b5010e7acbd16fcc5a33b9ff6360b3c09247b20830",
+      "sources": [
+        {
+          "path": "outputs/catalog/博AI增效-1D-10倍AI营销引擎_6X极速版.md",
+          "sha256": "5bb859ee9b30dc5b9661e647ccd8eef9a463f0e812a8993734f6f92a481d7e68"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-10倍业务型智能体_6X极速版.md",
+          "sha256": "8473b4637c7af3babea9bae2179ac74abe4f575e8c38cbf6f253fae7959dcad0"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-2D-10倍业务型智能体_6X进阶版.md",
+          "sha256": "0bc041def861cbffbf4d2a12413671bcce77c287bd657f3e6b26dd5c778f11b9"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-OPC实战工作坊.md",
+          "sha256": "f11b1021ffe574b5a8d3eec047def9637fbfe9f0cd754af5366e4080ec1ac06f"
+        }
+      ]
+    },
+    "博AI课纲-手机参考包-行业专项.md": {
+      "key": "industry",
+      "characters": 23829,
+      "sha256": "73abd7b1719fe79824e8dd081b3ebe1e77200638c0faab47076aa65f52ac58c0",
+      "sources": [
+        {
+          "path": "outputs/catalog/博AI增效-1D-电网AI办公增效实战_6X垂直版.md",
+          "sha256": "d2895fd393751c21843a7378c7019973a6cdf5638959834e35613ac035c94799"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-通讯政企前端AI实战课_6X垂直版.md",
+          "sha256": "2ba86d35b9ff9c98dd6d5223dc0bc2ea9dd33e3fda517036324c42699d545b9a"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-2D-通讯网格营销AI实战工作坊_6X垂直版.md",
+          "sha256": "da16dcabc6145eadd2bc73641b24f4d3b295143ff655c16dd8bb63a8726bb913"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-2D-通讯Token运营AI实战工作坊_6X垂直版.md",
+          "sha256": "c9b07b3bf070ddcd7ec40aece9c20963bf28e8d5618c51a4261da9ff1e1745a3"
+        },
+        {
+          "path": "references/WORKBUDDY-COURSE.md",
+          "sha256": "e4d6f52ec9a3c823887f44b7724450c659c85d4bc20b34b82c22423a64f1fc0a"
+        },
+        {
+          "path": "references/COMMUNICATIONS-SERIES.md",
+          "sha256": "24dd9d5aa6bc7e30210526ef8d4e29497fbeca547e6804cb4a69c25bb15f4b80"
+        }
+      ]
+    },
+    "博AI课纲-手机加载包.md": {
+      "key": "full",
+      "characters": 99321,
+      "sha256": "3aa77706ea512aaa22c86435cd3c7098eb299cea64b8583690a62bc12f982d5a",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "dcbb5598c9831510f6fc912863b41e5253f713d94f270c0a1418e03f7d3c6cca"
+        },
+        {
+          "path": "WORKFLOW.md",
+          "sha256": "ba1ba9f2be5839a21d06b1b0f2800f98b7d8ef64b2c5ffb7aa654b2fb4e587d1"
+        },
+        {
+          "path": "OUTPUT-FORMAT.md",
+          "sha256": "ea6b06598efaa35dcd5365ea5c3218cb6413231dcb2fc9835d71e2e09483eecb"
+        },
+        {
+          "path": "CHECKLIST.md",
+          "sha256": "c3a1949ea9515e7283f114345a3524ea01d0d6b44499d96d4e165be20498854b"
+        },
+        {
+          "path": "references/CURRENT-COURSE-PACK.md",
+          "sha256": "e0bf9ebae8b84344cfbc31326b438286b3712223ad7a6f627d0e1d91b531daae"
+        },
+        {
+          "path": "references/STYLE-BENCHMARK.md",
+          "sha256": "1532a95d22fc44b76ff4fb8ee587f1ee9f01eef49c7ebab2bedd085e9d684964"
+        },
+        {
+          "path": "references/01-三天综合办公-语言标杆.md",
+          "sha256": "fb743e1e449eaf2f062a6d968d0dc14b7d66296c64551cd558751845e17ef9cc"
+        },
+        {
+          "path": "references/LECTURER.md",
+          "sha256": "ce7c5bf6a5f99c6b14f69faaecfa5ff51c61aef52d6dc847c87b8f8c9c5c8b28"
+        },
+        {
+          "path": "references/COURSE-CATALOG.md",
+          "sha256": "4e28f20c1ebab5b658156d10b6e081f17a597e0a33bd28d01675dc84cc7dba88"
+        },
+        {
+          "path": "大展宏图方法论.md",
+          "sha256": "29be671738ff6e4c65e25068439951e60693605f75c7ecd83ddae9712cffad41"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-10倍职场办公_6X畅销版.md",
+          "sha256": "d30febe64b7e5ea58b6ca30367eb1741cfb94f188a5b84bae5d8b84048e1a4b3"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-2D-10倍职场办公_6X畅销版.md",
+          "sha256": "e21bc9376485f50f088a72ab335cd536e7b844a0772a4674a82348d7e2ac516f"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-10倍职场办公_6X数据版.md",
+          "sha256": "0e8d2c2a15dd50c55f88ec4fcc241cef7bedf1ae85effa534eedaa793617e535"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-面向管理者的AI增长进阶课_6X高管版.md",
+          "sha256": "b6548324b47f862e6d6756d2f9e82de29902ddc28d59f27f5da74519a2bb343c"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-飞书AI实战课_6X飞书版.md",
+          "sha256": "bc2666c52e748a3881555e34ef99f4f18358b3330746dceb49fc28cf88b90445"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-10倍AI营销引擎_6X极速版.md",
+          "sha256": "5bb859ee9b30dc5b9661e647ccd8eef9a463f0e812a8993734f6f92a481d7e68"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-10倍业务型智能体_6X极速版.md",
+          "sha256": "8473b4637c7af3babea9bae2179ac74abe4f575e8c38cbf6f253fae7959dcad0"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-2D-10倍业务型智能体_6X进阶版.md",
+          "sha256": "0bc041def861cbffbf4d2a12413671bcce77c287bd657f3e6b26dd5c778f11b9"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-OPC实战工作坊.md",
+          "sha256": "f11b1021ffe574b5a8d3eec047def9637fbfe9f0cd754af5366e4080ec1ac06f"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-电网AI办公增效实战_6X垂直版.md",
+          "sha256": "d2895fd393751c21843a7378c7019973a6cdf5638959834e35613ac035c94799"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-1D-通讯政企前端AI实战课_6X垂直版.md",
+          "sha256": "2ba86d35b9ff9c98dd6d5223dc0bc2ea9dd33e3fda517036324c42699d545b9a"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-2D-通讯网格营销AI实战工作坊_6X垂直版.md",
+          "sha256": "da16dcabc6145eadd2bc73641b24f4d3b295143ff655c16dd8bb63a8726bb913"
+        },
+        {
+          "path": "outputs/catalog/博AI增效-2D-通讯Token运营AI实战工作坊_6X垂直版.md",
+          "sha256": "c9b07b3bf070ddcd7ec40aece9c20963bf28e8d5618c51a4261da9ff1e1745a3"
+        },
+        {
+          "path": "references/WORKBUDDY-COURSE.md",
+          "sha256": "e4d6f52ec9a3c823887f44b7724450c659c85d4bc20b34b82c22423a64f1fc0a"
+        },
+        {
+          "path": "references/COMMUNICATIONS-SERIES.md",
+          "sha256": "24dd9d5aa6bc7e30210526ef8d4e29497fbeca547e6804cb4a69c25bb15f4b80"
+        },
+        {
+          "path": "CROSS-PLATFORM.md",
+          "sha256": "b74f960907784c189cd3ca588652b6b098fd55995b440665aa0f8e1821b945d9"
+        },
+        {
+          "path": "delivery-pack/DELIVERY-WORKFLOW.md",
+          "sha256": "607377bacb69049e61868c8351f86257b6c3c901f1b6c6aae7c642147fd4e9e5"
+        },
+        {
+          "path": "delivery-pack/STYLE-GUIDE-WORD.md",
+          "sha256": "38113baefc04e505873611c4797031aec30d97835e373fd98001aa8736f9d701"
+        },
+        {
+          "path": "outputs/博AI增效-课程销售矩阵.md",
+          "sha256": "e53ccc36aae825b9b9032b3e95fa900bef77144b1f5bcebc3ea72e659bd9d676"
+        },
+        {
+          "path": "outputs/博AI增效-课程销售客服Q&A.md",
+          "sha256": "bdec11e3aff880f8b45235bc0f6ecf333757edda38082f8aaf42a70c8075a991"
+        },
+        {
+          "path": "references/02-职场办公-经典母版.md",
+          "sha256": "5e0b5a2adba612a9aa21a5c6ab8baf89876bfa9c1089ae93247edd3945da429f"
+        },
+        {
+          "path": "references/03-营销内容-经典母版.md",
+          "sha256": "e1baa69a12ac9869ca749b27799dea601dd29be7faa12ba3ca820a818693cd19"
+        },
+        {
+          "path": "references/04-业务智能体-一天母版.md",
+          "sha256": "7de6b0b2f6def9f8739bc6b1158fd6f54ce45a94bf638c4823f561850a9d5942"
+        },
+        {
+          "path": "references/05-业务智能体-两天母版.md",
+          "sha256": "a9d2ca5b00f54999a0fb27978cea0c27d64936304f7ae01497e87521b1a6df38"
+        },
+        {
+          "path": "references/06-WorkBuddy-数字员工.md",
+          "sha256": "1904db2871e2e1a35b6c17c6198f211f3a8201030b3e76c615510ebc2153429d"
+        },
+        {
+          "path": "references/07-办公与WorkBuddy-两天.md",
+          "sha256": "aaf15da0e71db95ff2ca9e600f9aa703400b708258d174fb76f5712375080f46"
+        },
+        {
+          "path": "references/08-HR与WorkBuddy-两天.md",
+          "sha256": "67463b70607aab713fc0f56e23507e0e043ccd73cc6a323d23cfb5d8ab36d683"
+        },
+        {
+          "path": "references/09-办公数据分析-一天.md",
+          "sha256": "f748c5474bafde16b60277bc72aba25a6a8af114ce44d290fb7d3fd4d7432315"
+        },
+        {
+          "path": "references/10-管理者-AI应用.md",
+          "sha256": "39d287ee14669d21110302984b10ec1af0fb79841c136e1cac08c209a9444b4d"
+        }
+      ]
+    }
+  }
+}
