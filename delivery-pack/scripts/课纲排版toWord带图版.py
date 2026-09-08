@@ -257,6 +257,8 @@ def add_bullet(doc, text):
     para = doc.add_paragraph(style='List Bullet')
     para.paragraph_format.space_before = Pt(3)
     para.paragraph_format.space_after = Pt(3)
+    if text.startswith('**关键词：'):
+        para.paragraph_format.keep_with_next = True
     # 处理加粗文本
     parts = re.split(r'(\*\*[^*]+\*\*)', text)
     for part in parts:

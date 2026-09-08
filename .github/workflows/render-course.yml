@@ -40,9 +40,12 @@ jobs:
       - name: Render owner-submitted Markdown
         if: github.event_name == 'issues'
         run: python delivery-pack/scripts/cloud_render.py --event "$GITHUB_EVENT_PATH"
-      - name: Render sample
+      - name: Render course variants
         if: github.event_name != 'issues'
-        run: python delivery-pack/scripts/cloud_render.py
+        run: |
+          python delivery-pack/scripts/cloud_render.py --input "outputs/WorkBuddy职场办公实战工作坊-1D.md"
+          mv render-result.json render-result-1D.json
+          python delivery-pack/scripts/cloud_render.py --input "outputs/WorkBuddy职场办公实战工作坊-2D.md"
       - uses: actions/upload-artifact@v4
         with:
           name: course-render-${{ github.run_id }}
@@ -51,4 +54,5 @@ jobs:
             outputs/**/*.docx
             outputs/**/*.pdf
             render-result.json
+            render-result-1D.json
           retention-days: 7

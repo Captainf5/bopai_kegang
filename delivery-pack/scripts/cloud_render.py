@@ -45,6 +45,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--event", type=Path)
     parser.add_argument("--soffice", default="soffice")
+    parser.add_argument("--input", type=Path)
     args = parser.parse_args()
     if args.event:
         content, number = issue_markdown(json.loads(args.event.read_text(encoding="utf-8")))
@@ -53,7 +54,7 @@ def main():
         md = dest / "course.md"
         md.write_text(content+"\n", encoding="utf-8")
     else:
-        md = SAMPLE
+        md = args.input or SAMPLE
     docx = md.with_name(md.stem+"_带图.docx")
     pdf = docx.with_suffix(".pdf")
     spec = importlib.util.spec_from_file_location("layout", Path(__file__).with_name("课纲排版toWord带图版.py"))
