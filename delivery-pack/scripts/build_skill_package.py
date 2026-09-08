@@ -21,7 +21,7 @@ def source_files():
     for path in paths:
         if not path.is_file() or path.is_symlink() or not path.resolve().is_relative_to(ROOT.resolve()):
             raise ValueError(f'缺失或不安全的包资源: {path.name}')
-    return sorted(paths)
+    return sorted(paths, key=lambda path: path.relative_to(ROOT).as_posix())
 
 def payload():
     files = {}

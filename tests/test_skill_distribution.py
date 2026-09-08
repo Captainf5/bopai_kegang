@@ -14,6 +14,8 @@ class DistributionTests(unittest.TestCase):
             self.assertIn(source.read_text(encoding='utf-8').strip(),text)
 
     def test_zip_matches_sources_and_excludes_unrelated_files(self):
+        paths=[p.relative_to(ROOT).as_posix() for p in build_skill_package.source_files()]
+        self.assertEqual(paths,sorted(paths))
         build_skill_package.build(check=True)
         with zipfile.ZipFile(build_skill_package.OUTPUT) as archive:
             names=archive.namelist()
