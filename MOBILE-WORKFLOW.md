@@ -6,7 +6,7 @@
 
 此包从同一仓库生成，包含主规则、表达规范和十份核心课纲；不是另一套简版Skill。修改规则后运行 `python delivery-pack/scripts/build_mobile_pack.py` 更新它。
 
-Codex、WorkBuddy的安装、选择技能和跨设备接力方法见[CROSS-PLATFORM.md](CROSS-PLATFORM.md)。新版手机包还包含讲师口径、课程命名、销售矩阵、10份当前产品课纲及排版指引；附件阅读与桌面原生Skill调用是两种加载方式，不能混称已安装。按本次产品读取相关课纲，不要求每次重写都套用全部产品。
+Codex、WorkBuddy的安装、选择技能和跨设备接力方法见[CROSS-PLATFORM.md](CROSS-PLATFORM.md)。新版手机包还包含讲师口径、课程命名、销售矩阵、13份当前产品课纲及排版指引；附件阅读与桌面原生Skill调用是两种加载方式，不能混称已安装。按本次产品读取相关课纲，不要求每次重写都套用全部产品。
 
 ## 第一步：手机AI写稿与修改
 

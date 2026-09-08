@@ -11,3 +11,6 @@ Thumbs.db
 
 # Reproducible local package staging
 dist/
+
+# Local self-improvement logs
+.learnings/

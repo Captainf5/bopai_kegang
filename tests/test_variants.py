@@ -40,7 +40,7 @@ class VariantTests(unittest.TestCase):
                 self.assertEqual(source.count('- 讲解要点：'), count)
                 modules = re.split(r'\*\*模块\d+：', source)[1:]
                 self.assertIn('豆包', modules[0]); self.assertIn('DeepSeek', modules[0])
-                for term in ['AGENTS.md', '连接器的使用', '专家团的创建', '自动化任务', '岗位AI工作台', 'Reconcile', 'OC框架']:
+                for term in ['AGENTS.md', '连接器的使用', '专家团的创建', '自动化任务', '岗位AI工作台', '终稿对照', 'OC框架']:
                     self.assertIn(term, source)
                 tables = [t for t in doc.tables if t.cell(0,0).text == '时间']
                 self.assertEqual(len(tables), days)

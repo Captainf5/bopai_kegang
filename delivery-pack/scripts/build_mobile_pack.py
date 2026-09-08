@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[2]
 def source_paths():
     paths = [ROOT/p for p in ["SKILL.md","WORKFLOW.md","OUTPUT-FORMAT.md","CHECKLIST.md","references/README.md","references/STYLE-BENCHMARK.md","大展宏图方法论.md"]]
     paths += sorted((ROOT/"references").glob("[0-9][0-9]-*.md"))
-    paths += [ROOT/p for p in ["references/LECTURER.md","references/WORKBUDDY-COURSE.md","references/COURSE-CATALOG.md","CROSS-PLATFORM.md","MOBILE-WORKFLOW.md","delivery-pack/DELIVERY-WORKFLOW.md","delivery-pack/STYLE-GUIDE-WORD.md","outputs/博AI增效-课程销售矩阵.md"]]
+    paths += [ROOT/p for p in ["references/LECTURER.md","references/WORKBUDDY-COURSE.md","references/COURSE-CATALOG.md","references/COMMUNICATIONS-SERIES.md","CROSS-PLATFORM.md","MOBILE-WORKFLOW.md","delivery-pack/DELIVERY-WORKFLOW.md","delivery-pack/STYLE-GUIDE-WORD.md","outputs/博AI增效-课程销售矩阵.md"]]
     paths += sorted((ROOT/'outputs/catalog').glob('*.md'), key=lambda p:p.name)
     return paths
 
