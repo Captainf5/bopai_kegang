@@ -54,7 +54,7 @@ def main():
         md = dest / "course.md"
         md.write_text(content+"\n", encoding="utf-8")
     else:
-        md = args.input or SAMPLE
+        md = (args.input or SAMPLE).resolve()
     docx = md.with_name(md.stem+"_带图.docx")
     pdf = docx.with_suffix(".pdf")
     spec = importlib.util.spec_from_file_location("layout", Path(__file__).with_name("课纲排版toWord带图版.py"))
