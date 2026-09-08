@@ -9,7 +9,7 @@ class LayoutTests(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp=tempfile.TemporaryDirectory()
         cls.out=Path(cls.tmp.name)/"test.docx"
-        layout.convert_md_to_docx(ROOT/"outputs/WorkBuddy职场办公实战工作坊-2D.md",cls.out)
+        layout.convert_md_to_docx(ROOT/"outputs/catalog/博AI增效-2D-10倍职场办公_6X畅销版.md",cls.out)
         cls.doc=Document(cls.out)
     @classmethod
     def tearDownClass(cls): cls.tmp.cleanup()

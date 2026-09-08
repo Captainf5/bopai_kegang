@@ -3,7 +3,7 @@ import argparse, hashlib, importlib.util, json, os, shutil, subprocess, tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SAMPLE = ROOT / "outputs/WorkBuddy职场办公实战工作坊-2D.md"
+SAMPLE = ROOT / "outputs/catalog/博AI增效-2D-10倍职场办公_6X畅销版.md"
 ACK = "我确认课纲不含客户机密或个人敏感信息，并同意公开课纲与生成文件。"
 
 def issue_markdown(event):

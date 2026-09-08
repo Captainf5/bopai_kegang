@@ -29,7 +29,7 @@ class VariantTests(unittest.TestCase):
     def test_keywords_and_timetables(self):
         for days, count in [(1, 6), (2, 9)]:
             with self.subTest(days=days), tempfile.TemporaryDirectory() as tmp:
-                md = ROOT/f'outputs/WorkBuddy职场办公实战工作坊-{days}D.md'
+                md = ROOT/f'outputs/catalog/博AI增效-{days}D-10倍职场办公_6X畅销版.md'
                 source = md.read_text(encoding='utf-8')
                 out = Path(tmp)/'course.docx'
                 layout.convert_md_to_docx(md, out)

@@ -19,4 +19,6 @@
 
 语言与视觉规范：[STYLE-BENCHMARK.md](STYLE-BENCHMARK.md)。旧 reference-pack 保留历史资料，不是默认事实来源。
 
+自有课程产品规则：[COURSE-CATALOG.md](COURSE-CATALOG.md)；最新10份产品课纲见[销售矩阵](../outputs/博AI增效-课程销售矩阵.md)，不改变这里十份历史核心参考的数量和身份。
+
 当前固定规则：[讲师口径](LECTURER.md)、[WorkBuddy课程取舍与认可成稿](WORKBUDDY-COURSE.md)。这两份是规范，不计入十份核心参考课纲；当前规范优先于历史参考。

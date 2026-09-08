@@ -34,7 +34,7 @@ class DistributionTests(unittest.TestCase):
             spec=importlib.util.spec_from_file_location('portable_layout',package/'delivery-pack/scripts/课纲排版toWord带图版.py')
             renderer=importlib.util.module_from_spec(spec); spec.loader.exec_module(renderer)
             for days in [1,2]:
-                source=package/f'outputs/WorkBuddy职场办公实战工作坊-{days}D.md'
+                source=package/f'outputs/catalog/博AI增效-{days}D-10倍职场办公_6X畅销版.md'
                 target=Path(tmp)/f'{days}D.docx'
                 renderer.convert_md_to_docx(source,target)
                 self.assertGreater(target.stat().st_size,10000)

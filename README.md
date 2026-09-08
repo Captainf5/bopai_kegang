@@ -4,10 +4,16 @@
 
 [手机使用流程](MOBILE-WORKFLOW.md) · [手机排版入口](https://github.com/Captainf5/bopai_kegang/issues/new?template=course-render.yml) · [云端排版记录与下载](https://github.com/Captainf5/bopai_kegang/actions/workflows/render-course.yml)
 
-## 本次成果
+## 当前课程产品
 
-- 一天版：[完整课纲](outputs/WorkBuddy职场办公实战工作坊-1D.md) · [带图Word](outputs/WorkBuddy职场办公实战工作坊-1D_带图.docx?raw=true) · [固定版式PDF](outputs/WorkBuddy职场办公实战工作坊-1D_带图.pdf?raw=true)
-- 两天版：[完整课纲](outputs/WorkBuddy职场办公实战工作坊-2D.md) · [带图Word](outputs/WorkBuddy职场办公实战工作坊-2D_带图.docx?raw=true) · [固定版式PDF](outputs/WorkBuddy职场办公实战工作坊-2D_带图.pdf?raw=true)
+- [课程销售矩阵与10份完整课纲](outputs/博AI增效-课程销售矩阵.md)：8个6X标准产品、办公两天延展和独立OPC。
+- [命名与产品规则](references/COURSE-CATALOG.md)：时长放品牌之后；OPC按独立名称；WorkBuddy两份稿仅改标题与文件名。
+- 新标题对应的Word/PDF以本轮云端运行生成文件为准，下方保留的Word/PDF链接为上一轮旧标题成品。
+
+## WorkBuddy正文与上轮排版参考
+
+- 一天版：[完整课纲](outputs/catalog/博AI增效-1D-10倍职场办公_6X畅销版.md) · [带图Word](outputs/WorkBuddy职场办公实战工作坊-1D_带图.docx?raw=true) · [固定版式PDF](outputs/WorkBuddy职场办公实战工作坊-1D_带图.pdf?raw=true)
+- 两天版：[完整课纲](outputs/catalog/博AI增效-2D-10倍职场办公_6X畅销版.md) · [带图Word](outputs/WorkBuddy职场办公实战工作坊-2D_带图.docx?raw=true) · [固定版式PDF](outputs/WorkBuddy职场办公实战工作坊-2D_带图.pdf?raw=true)
 - 一天版围绕一个岗位任务，练习个性化设置、Skill、连接器、专家团与自动化；两天版保留文档、数据、图文视频、PPT及HTML实操。每章先列关键词，成果统一整理为岗位AI工作台。
 - [Skill入口](SKILL.md)、[十份核心课纲](references/README.md)、[表达与排版标杆](references/STYLE-BENCHMARK.md)
 - [课程研发方法](大展宏图方法论.md)、[交付检查表](CHECKLIST.md)

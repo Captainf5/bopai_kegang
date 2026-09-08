@@ -5,7 +5,7 @@ spec = importlib.util.spec_from_file_location("cloud",ROOT/"delivery-pack/script
 cloud = importlib.util.module_from_spec(spec); spec.loader.exec_module(cloud)
 class MobileInputTests(unittest.TestCase):
     def event(self):
-        md = (ROOT/"outputs/WorkBuddy职场办公实战工作坊-2D.md").read_text(encoding="utf-8")
+        md = (ROOT/"outputs/catalog/博AI增效-2D-10倍职场办公_6X畅销版.md").read_text(encoding="utf-8")
         return {"repository":{"owner":{"login":"owner"}},"sender":{"login":"owner"},
                 "issue":{"number":123,"user":{"login":"owner"},"title":"[课纲排版] test",
                          "body":"### 课纲 Markdown\n\n"+md+"\n\n### 发布确认\n\n- [X] "+cloud.ACK}}
