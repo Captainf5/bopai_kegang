@@ -16,6 +16,7 @@
 import argparse
 import os
 import re
+import unicodedata
 import zipfile
 from pathlib import Path
 from docx import Document
@@ -24,6 +25,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn, nsdecls
 from docx.oxml import parse_xml
+from docx.opc.constants import RELATIONSHIP_TYPE as RT
 
 # 路径配置
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -54,6 +56,7 @@ LIGHT_ORANGE_HEX = "FFF5EE"
 BLACK = RGBColor(0x1A, 0x1A, 0x1A)
 GRAY = RGBColor(0x66, 0x66, 0x66)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
+TITLE_COMPACT_WIDTH = 45
 
 def find_image(key):
     """查找图片文件"""
@@ -71,6 +74,32 @@ def set_font(run, name='微软雅黑', size=11, bold=False, color=BLACK):
     run.font.bold = bold
     if color:
         run.font.color.rgb = color
+
+def display_width(text):
+    """Estimate mixed Chinese/Latin title width in terminal-style columns."""
+    return sum(2 if unicodedata.east_asian_width(char) in {'W', 'F', 'A'} else 1 for char in text)
+
+def title_font_size(text):
+    """Keep the standard 18pt title, reducing only titles that exceed one line."""
+    return 16 if display_width(text) > TITLE_COMPACT_WIDTH else 18
+
+def set_outline_level(para, level):
+    """Add Word navigation/TOC semantics without changing visual styling."""
+    outline = para._p.get_or_add_pPr().get_or_add_outlineLvl()
+    outline.set(qn('w:val'), str(level))
+
+def drop_unused_image_relationships(doc):
+    """Remove template image parts that are no longer referenced by the body."""
+    image_reference_attrs = {qn('r:embed'), qn('r:link'), qn('r:id')}
+    used_rids = {
+        value
+        for element in doc._element.iter()
+        for attr, value in element.attrib.items()
+        if attr in image_reference_attrs
+    }
+    for rid, rel in list(doc.part.rels.items()):
+        if rel.reltype == RT.IMAGE and rid not in used_rids:
+            doc.part.drop_rel(rid)
 
 def add_caption(doc, text):
     """添加居中小字图片说明"""
@@ -179,6 +208,7 @@ def parse_markdown(md_content):
 def add_h1(doc, text):
     """橙色横幅标题"""
     para = doc.add_paragraph()
+    set_outline_level(para, 0)
     para.alignment = WD_ALIGN_PARAGRAPH.CENTER
     shading = parse_xml(f'<w:shd {nsdecls("w")} w:fill="FF6B35"/>')
     para._p.get_or_add_pPr().append(shading)
@@ -186,7 +216,7 @@ def add_h1(doc, text):
     para.paragraph_format.space_after = Pt(12)
     para.paragraph_format.keep_with_next = True
     run = para.add_run(text)
-    set_font(run, size=18, bold=True, color=WHITE)
+    set_font(run, size=title_font_size(text), bold=True, color=WHITE)
 
 def add_subtitle(doc, text):
     """灰色右对齐副标题"""
@@ -198,6 +228,7 @@ def add_subtitle(doc, text):
 def add_h2(doc, text):
     """橙色加粗二级标题"""
     para = doc.add_paragraph()
+    set_outline_level(para, 1)
     para.paragraph_format.space_before = Pt(18)
     para.paragraph_format.space_after = Pt(6)
     para.paragraph_format.keep_with_next = True
@@ -207,6 +238,7 @@ def add_h2(doc, text):
 def add_h3(doc, text):
     """左侧橙色竖线三级标题"""
     para = doc.add_paragraph()
+    set_outline_level(para, 2)
     para.paragraph_format.space_before = Pt(12)
     para.paragraph_format.space_after = Pt(6)
     para.paragraph_format.keep_with_next = True
@@ -225,6 +257,7 @@ def add_h3(doc, text):
 def add_h4(doc, text):
     """黑色加粗四级标题"""
     para = doc.add_paragraph()
+    set_outline_level(para, 3)
     para.paragraph_format.space_before = Pt(18)
     para.paragraph_format.space_after = Pt(3)
     para.paragraph_format.keep_with_next = True
@@ -234,6 +267,7 @@ def add_h4(doc, text):
 def add_h5(doc, text):
     """黑色加粗五级标题（模块标题）"""
     para = doc.add_paragraph()
+    set_outline_level(para, 4)
     para.paragraph_format.space_before = Pt(18)
     para.paragraph_format.space_after = Pt(3)
     para.paragraph_format.keep_with_next = True
@@ -392,6 +426,7 @@ def convert_md_to_docx(input_path, output_path):
             doc.paragraphs[-1].paragraph_format.keep_with_next = True
             doc.paragraphs[-1].paragraph_format.space_before = Pt(12)
     finish_section()
+    drop_unused_image_relationships(doc)
     for para in doc.paragraphs:
         para.paragraph_format.widow_control = True
         para.paragraph_format.keep_together = True
