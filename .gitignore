@@ -8,3 +8,6 @@ Thumbs.db
 # Generated delivery files
 *_带图.docx
 *.pdf
+
+# Reproducible local package staging
+dist/

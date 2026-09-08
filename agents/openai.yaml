@@ -1,0 +1,6 @@
+interface:
+  display_name: "博AI课纲"
+  short_description: "按博AI表达与版式研发、定制和排版完整企业课纲，复用十份核心参考"
+  default_prompt: "使用 $bopai-kegang 按我的课程对象、时长和业务需求制作完整课纲，并在确认需要时直接排版。"
+policy:
+  allow_implicit_invocation: true

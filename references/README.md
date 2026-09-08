@@ -18,3 +18,5 @@
 | [10-管理者-AI应用](10-管理者-AI应用.md) | 参考场景取舍、成果定义和推广，不添加未经证明的增长承诺。 |
 
 语言与视觉规范：[STYLE-BENCHMARK.md](STYLE-BENCHMARK.md)。旧 reference-pack 保留历史资料，不是默认事实来源。
+
+当前固定规则：[讲师口径](LECTURER.md)、[WorkBuddy课程取舍与认可成稿](WORKBUDDY-COURSE.md)。这两份是规范，不计入十份核心参考课纲；当前规范优先于历史参考。
