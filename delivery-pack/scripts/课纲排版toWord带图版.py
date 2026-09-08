@@ -242,8 +242,9 @@ def add_h3(doc, text):
     para.paragraph_format.space_before = Pt(12)
     para.paragraph_format.space_after = Pt(6)
     para.paragraph_format.keep_with_next = True
-    if text.startswith(('第二天', 'Day 2', '第三天', 'Day 3')):
-        para.paragraph_format.page_break_before = True
+    if text.startswith(('第一天', 'Day 1', '第二天', 'Day 2', '第三天', 'Day 3')):
+        para.paragraph_format.space_before = Pt(18)
+        para._p.get_or_add_pPr().append(parse_xml(f'<w:shd {nsdecls("w")} w:fill="FFF1EB"/>'))
     pPr = para._p.get_or_add_pPr()
     pBdr = parse_xml(
         f'<w:pBdr {nsdecls("w")}>'
