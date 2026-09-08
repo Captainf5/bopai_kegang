@@ -1,6 +1,7 @@
 import importlib.util, re, tempfile, unittest
 from pathlib import Path
 from docx import Document
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('variant_layout', ROOT/'delivery-pack/scripts/课纲排版toWord带图版.py')
@@ -8,6 +9,23 @@ layout = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(layout)
 
 class VariantTests(unittest.TestCase):
+    def test_relative_cloud_input_is_normalized(self):
+        cloud_spec = importlib.util.spec_from_file_location('cloud_paths', ROOT/'delivery-pack/scripts/cloud_render.py')
+        cloud = importlib.util.module_from_spec(cloud_spec)
+        cloud_spec.loader.exec_module(cloud)
+        with tempfile.TemporaryDirectory(dir=ROOT) as tmp:
+            md = Path(tmp)/'course.md'
+            md.write_text('# 路径测试\n\n## 课程大纲\n\n测试正文。', encoding='utf-8')
+            from os.path import relpath
+            def stop_after_check(docx, pdf, soffice):
+                self.assertTrue(docx.is_absolute())
+                self.assertTrue(pdf.is_absolute())
+                self.assertEqual(docx.parent, md.parent)
+                raise RuntimeError('checked-before-PDF')
+            with patch('sys.argv', ['cloud_render.py', '--input', relpath(md)]), patch.object(cloud, 'convert_pdf', side_effect=stop_after_check):
+                with self.assertRaisesRegex(RuntimeError, 'checked-before-PDF'):
+                    cloud.main()
+
     def test_keywords_and_timetables(self):
         for days, count in [(1, 6), (2, 9)]:
             with self.subTest(days=days), tempfile.TemporaryDirectory() as tmp:

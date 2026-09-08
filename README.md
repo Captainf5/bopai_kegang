@@ -6,11 +6,12 @@
 
 ## 本次成果
 
-- [WorkBuddy职场办公两天课纲](outputs/WorkBuddy职场办公实战工作坊-2D.md)
-- [下载带图Word](outputs/WorkBuddy职场办公实战工作坊-2D_带图.docx?raw=true) · [查看或下载PDF](outputs/WorkBuddy职场办公实战工作坊-2D_带图.pdf?raw=true)
+- 一天版：[完整课纲](outputs/WorkBuddy职场办公实战工作坊-1D.md) · [带图Word](outputs/WorkBuddy职场办公实战工作坊-1D_带图.docx?raw=true) · [固定版式PDF](outputs/WorkBuddy职场办公实战工作坊-1D_带图.pdf?raw=true)
+- 两天版：[完整课纲](outputs/WorkBuddy职场办公实战工作坊-2D.md) · [带图Word](outputs/WorkBuddy职场办公实战工作坊-2D_带图.docx?raw=true) · [固定版式PDF](outputs/WorkBuddy职场办公实战工作坊-2D_带图.pdf?raw=true)
+- 一天版围绕一个岗位任务，练习个性化设置、Skill、连接器、专家团与自动化；两天版保留文档、数据、图文视频、PPT及HTML实操。每章先列关键词，成果统一整理为岗位AI工作台。
 - [Skill入口](SKILL.md)、[十份核心课纲](references/README.md)、[表达与排版标杆](references/STYLE-BENCHMARK.md)
 - [课程研发方法](大展宏图方法论.md)、[交付检查表](CHECKLIST.md)
-- [本次实测与验收范围](VERIFICATION.md)：最终8页PDF已逐页检查，手机与电脑使用同一个文件。
+- [本次实测与验收范围](VERIFICATION.md)：手机与电脑使用同一份固定版式PDF，实际页数与检查结果见记录。
 
 ## 手机怎么用
 
