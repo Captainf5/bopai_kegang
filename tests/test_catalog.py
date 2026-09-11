@@ -32,7 +32,14 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(len(files),EXPECTED_COUNT)
         for path in files:
             text=path.read_text(encoding='utf-8')
-            self.assertEqual(text.splitlines()[0],'# '+path.stem)
+            first_line=text.splitlines()[0]
+            if path.name=='博AI增效-OPC实战工作坊.md':
+                self.assertEqual(first_line,'# 博AI增效-OPC实战工作坊')
+            else:
+                filename_match=re.fullmatch(r'博AI增效-([1-9]\d*)D-(.+)',path.stem)
+                self.assertIsNotNone(filename_match,path.name)
+                duration,course_name=filename_match.groups()
+                self.assertEqual(first_line,f'# 【博AI增效-{duration}D】{course_name}')
             self.assertTrue(
                 path.name=='博AI增效-OPC实战工作坊.md'
                 or re.fullmatch(r'博AI增效-[12]D-.+_6X(畅销|数据|高管|极速|进阶|飞书|垂直)版.md',path.name)

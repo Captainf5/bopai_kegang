@@ -75,6 +75,7 @@ class MobileInputTests(unittest.TestCase):
     def test_validates_same_course_contract_before_layout(self):
         text, _ = cloud.issue_markdown(self.event())
         checks = cloud.validate_course_markdown(text)
+        self.assertEqual(checks["title_duration"], "2D")
         self.assertEqual(checks["required_sections"], 8)
         self.assertGreater(checks["modules"], 0)
         self.assertEqual(checks["modules"], checks["schedule_rows"])
@@ -83,6 +84,33 @@ class MobileInputTests(unittest.TestCase):
         text, _ = cloud.issue_markdown(self.event())
         with self.assertRaisesRegex(ValueError, "缺少字段"):
             cloud.validate_course_markdown(text.replace("产出物：", "课堂作品：", 1))
+
+    def test_rejects_naked_or_legacy_title(self):
+        text, _ = cloud.issue_markdown(self.event())
+        first_line = text.splitlines()[0]
+        for invalid_title in (
+            "# 数智强能专题——智能体的场景化探索",
+            "# 博AI增效-2D-10倍职场办公_6X畅销版",
+        ):
+            with self.subTest(title=invalid_title):
+                with self.assertRaisesRegex(ValueError, "课纲标题必须使用"):
+                    cloud.validate_course_markdown(
+                        text.replace(first_line, invalid_title, 1)
+                    )
+
+    def test_accepts_exact_opc_title_exception(self):
+        text, _ = cloud.issue_markdown(self.event())
+        first_line = text.splitlines()[0]
+        checks = cloud.validate_course_markdown(
+            text.replace(first_line, cloud.OPC_TITLE, 1)
+        )
+        self.assertEqual(checks["title_duration"], "OPC")
+
+    def test_accepts_spaced_module_number(self):
+        text, _ = cloud.issue_markdown(self.event())
+        spaced = text.replace("**模块1：", "**模块 1：", 1)
+        checks = cloud.validate_course_markdown(spaced)
+        self.assertGreater(checks["modules"], 0)
 
     def test_docx_audit_confirms_template_and_letter_geometry(self):
         layout = cloud.load_layout_module()

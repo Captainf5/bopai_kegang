@@ -42,6 +42,10 @@ REQUIRED_SECTIONS = [
     "培训准备",
 ]
 MODULE_FIELDS = ["关键词：", "讲解要点：", "演示：", "学员练习：", "产出物："]
+OPC_TITLE = "# 博AI增效-OPC实战工作坊"
+COURSE_TITLE_RE = re.compile(
+    r"^# 【博AI增效-(?P<duration>(?:[1-9]\d*D|(?:[1-9]\d*(?:\.\d+)?|0\.\d+)H))】(?P<course_name>.+)$"
+)
 PRESERVED_TEMPLATE_PARTS = [
     "word/styles.xml",
     "word/stylesWithEffects.xml",
@@ -85,6 +89,18 @@ def issue_markdown(event):
 
 def validate_course_markdown(content: str) -> dict:
     """Apply the same minimum course contract before any layout is generated."""
+    first_line = content.splitlines()[0].strip() if content.splitlines() else ""
+    if first_line == OPC_TITLE:
+        title_duration = "OPC"
+    else:
+        title_match = COURSE_TITLE_RE.fullmatch(first_line)
+        if not title_match or not title_match.group("course_name").strip():
+            raise ValueError(
+                "课纲标题必须使用 # 【博AI增效-{时长}】{课程名}；"
+                "小时课按实际时长标记，OPC课程仅允许精确标题 # 博AI增效-OPC实战工作坊"
+            )
+        title_duration = title_match.group("duration")
+
     headings = []
     for section in REQUIRED_SECTIONS:
         match = re.search(rf"^##\s+[^\n]*{re.escape(section)}\s*$", content, re.M)
@@ -95,7 +111,7 @@ def validate_course_markdown(content: str) -> dict:
         raise ValueError("课纲章节顺序不符合统一结构")
 
     module_matches = list(
-        re.finditer(r"^\*\*(?:模块\d+|加餐)：[^\n]+\*\*\s*$", content, re.M)
+        re.finditer(r"^\*\*(?:模块\s*\d+|加餐)：[^\n]+\*\*\s*$", content, re.M)
     )
     if not module_matches:
         raise ValueError("课程大纲中没有完整教学模块")
@@ -113,7 +129,7 @@ def validate_course_markdown(content: str) -> dict:
 
     rows = re.findall(r"^\|\s*(\d{2}:\d{2})—(\d{2}:\d{2})\s*\|", content, re.M)
     slots = re.findall(
-        r"^\*\*(?:模块\d+|加餐)：[^\n]*｜(\d{2}:\d{2})—(\d{2}:\d{2})\*\*\s*$",
+        r"^\*\*(?:模块\s*\d+|加餐)：[^\n]*｜(\d{2}:\d{2})—(\d{2}:\d{2})\*\*\s*$",
         content,
         re.M,
     )
@@ -121,6 +137,7 @@ def validate_course_markdown(content: str) -> dict:
         raise ValueError("课程时间表必须与教学模块时段逐项一致")
 
     return {
+        "title_duration": title_duration,
         "required_sections": len(REQUIRED_SECTIONS),
         "modules": len(module_matches),
         "schedule_rows": len(rows),

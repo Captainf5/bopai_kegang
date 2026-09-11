@@ -63,7 +63,17 @@ class DistributionTests(unittest.TestCase):
             course_path = ROOT / entry["path"]
             first_line = canonical_text(course_path).splitlines()[0]
             self.assertEqual(first_line, "# " + entry["title"], entry["path"])
-            self.assertEqual(course_path.stem, entry["title"], entry["path"])
+            if entry["id"] == "opc-half-day":
+                self.assertEqual(entry["title"], "博AI增效-OPC实战工作坊")
+            else:
+                filename_prefix = f"博AI增效-{entry['duration']}-"
+                self.assertTrue(course_path.stem.startswith(filename_prefix), entry["path"])
+                self.assertEqual(
+                    entry["title"],
+                    f"【博AI增效-{entry['duration']}】"
+                    + course_path.stem.removeprefix(filename_prefix),
+                    entry["path"],
+                )
             self.assertEqual(
                 entry["sha256"],
                 hashlib.sha256(canonical_text(course_path).encode("utf-8")).hexdigest(),
