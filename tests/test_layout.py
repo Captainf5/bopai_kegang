@@ -43,6 +43,10 @@ class LayoutTests(unittest.TestCase):
         days=[p for p in self.doc.paragraphs if p.text.startswith(('第一天','第二天'))]
         self.assertEqual(len(days),2)
         self.assertTrue(all(outline(p)=='2' for p in days))
+    def test_course_title_is_embedded_in_word_properties(self):
+        source=(ROOT/"outputs/catalog/博AI增效-2D-10倍职场办公_6X畅销版.md").read_text(encoding="utf-8")
+        expected=next(line[2:].strip() for line in source.splitlines() if line.startswith("# "))
+        self.assertEqual(self.doc.core_properties.title,expected)
     def test_long_title_uses_compact_font_only_when_needed(self):
         doc=Document()
         layout.add_h1(doc,'博AI增效-2D-通讯Token运营AI实战工作坊_6X垂直版')

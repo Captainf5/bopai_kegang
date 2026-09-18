@@ -17,7 +17,6 @@ import argparse
 import os
 import re
 import unicodedata
-import zipfile
 from pathlib import Path
 from docx import Document
 from docx.shared import Pt, Cm, RGBColor
@@ -396,8 +395,13 @@ def convert_md_to_docx(input_path, output_path):
     if len(md_content) > 100000:
         raise ValueError('课纲过长，请控制在100000字符以内')
     elements = parse_markdown(md_content)
+    course_titles = [text for kind, text in elements if kind == 'h1']
+    if len(course_titles) != 1:
+        raise ValueError('课纲必须且只能有一个 H1 课程标题')
+    course_title = course_titles[0]
     template = Path(SCRIPT_DIR).parent / '课纲模板.docx'
     doc = Document(str(template))
+    doc.core_properties.title = course_title
     # The retained package supplies styles, numbering, media, and page geometry.
     for child in list(doc._element.body):
         if child.tag != qn('w:sectPr'):
@@ -438,16 +442,6 @@ def convert_md_to_docx(input_path, output_path):
         section.page_height = Pt(792)
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     doc.save(output_path)
-    # python-docx rewrites several untouched package parts; preserve those exactly.
-    preserve = ['word/styles.xml', 'word/stylesWithEffects.xml', 'word/numbering.xml', 'word/theme/theme1.xml']
-    with zipfile.ZipFile(template) as z:
-        originals = {n:z.read(n) for n in preserve if n in z.namelist()}
-    with zipfile.ZipFile(output_path) as z:
-        parts = {n:z.read(n) for n in z.namelist()}
-    parts.update(originals)
-    with zipfile.ZipFile(output_path, 'w', zipfile.ZIP_DEFLATED) as z:
-        for name,data in parts.items():
-            z.writestr(name,data)
     print(f'Word已生成：{output_path}')
 
 def main():

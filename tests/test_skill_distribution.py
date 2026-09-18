@@ -123,7 +123,7 @@ class DistributionTests(unittest.TestCase):
     def test_mobile_manifest_hashes_match_rendered_packs_and_sources(self):
         build_mobile_pack.build(check=True)
         manifest = json.loads(build_mobile_pack.MANIFEST_PATH.read_text(encoding="utf-8"))
-        self.assertEqual(manifest["version"], "v1.7.1")
+        self.assertEqual(manifest["version"], (ROOT / "VERSION").read_text(encoding="utf-8").strip())
         self.assertEqual(manifest["reference_basis"], "outputs/catalog")
         self.assertEqual(
             manifest["basis_sha256"], build_mobile_pack.course_basis_sha256()
@@ -195,7 +195,7 @@ class DistributionTests(unittest.TestCase):
                 )
 
                 manifest = json.loads(archive.read("bopai-kegang/PACKAGE-MANIFEST.json"))
-                self.assertEqual(manifest["version"], "v1.7.1", flavor)
+                self.assertEqual(manifest["version"], (ROOT / "VERSION").read_text(encoding="utf-8").strip(), flavor)
                 self.assertEqual(manifest["flavor"], flavor)
                 self.assertEqual(manifest["reference_basis"], "outputs/catalog")
                 self.assertEqual(

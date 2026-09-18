@@ -212,9 +212,7 @@ def render_sources(title, guidance, paths):
         f"# {title}\n\n"
         f"Skill版本：{version}\n\n"
         f"{guidance}\n\n"
-        "这是由GitHub同一仓库自动生成的只读副本，不要手工修改。"
-        "当前用户要求与SKILL优先；当前13份课程成稿优先于历史母版。"
-        "如果预期文件没有出现在“文件：路径”分段中，或附件明显被截断，请先说明，不能假装已加载。\n"
+        "GitHub自动生成，只读。用户要求与当前13份成稿优先；缺文件或截断须说明。\n"
     )
     for path in paths:
         relative = path.relative_to(ROOT).as_posix()

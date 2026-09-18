@@ -14,6 +14,8 @@
 python delivery-pack/scripts/课纲排版toWord带图版.py --input "课纲.md"
 ```
 
+客户名称使用输出目录承载，文件名使用 Markdown H1 的完整文字；生成后必须执行 `scripts/validate_title_sync.py`，校验 Markdown H1、Word 首页标题、Word 属性 Title 与 Word/PDF 文件名一致后，才能交付。
+
 模板为同目录的“课纲模板.docx”，由用户认可样稿去除客户正文、缩略图与个人元数据派生；保留样式、主题和编号。图片均与仓库已有公开素材逐字节核对。
 
 本地PDF助手仍支持已安装Word的环境：

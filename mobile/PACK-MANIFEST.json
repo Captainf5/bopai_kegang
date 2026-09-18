@@ -1,18 +1,18 @@
 {
   "name": "bopai-kegang-mobile-packs",
-  "version": "v1.7.1",
+  "version": "v1.7.2",
   "reference_basis": "outputs/catalog",
   "basis_sha256": "0b1091a638e39e32505962aafd1ab8ea4caae49c34ab6acfd3b13dd5e196ee8d",
-  "layout_basis_sha256": "f5ebcffd40e29bcd99683432a71d237ecceee182de4e55208ff6c29221c7f7ac",
+  "layout_basis_sha256": "d000678eb1bbd345f6eddb6fccb941ff23a399f80ecc552999a1092fa62597a2",
   "packs": {
     "博AI课纲-手机核心规则包.md": {
       "key": "core",
-      "characters": 19819,
-      "sha256": "b2ebf7349da8a360f3dad7289cf8f724b301eecfe6bc954205ef02269c337439",
+      "characters": 19868,
+      "sha256": "1a5ffd1d0aca08b7862fb9fbfe3f60a771b1f78a323ae3a884ad042560056b2d",
       "sources": [
         {
           "path": "SKILL.md",
-          "sha256": "4ffff6bc069edbfb4ffd4d003699a28da8b6457a53ff8b2f28e065bdcaef6466"
+          "sha256": "f4942a2d4b5d45ff2ee07f247374f1ee04c4b15fec08de6a524d096e9d53f1cb"
         },
         {
           "path": "WORKFLOW.md",
@@ -24,7 +24,7 @@
         },
         {
           "path": "CHECKLIST.md",
-          "sha256": "fbff6ed1480a04f518211fc9c810fabf2ae21a7bba5caf2f302c25927ddf81d0"
+          "sha256": "ba07149f0bfcd6f96c7bf3355f55ea571e9658e8a3937a3b898d069be0d575ae"
         },
         {
           "path": "references/CURRENT-COURSE-PACK.md",
@@ -54,8 +54,8 @@
     },
     "博AI课纲-手机参考包-通用办公与管理.md": {
       "key": "office-management",
-      "characters": 25151,
-      "sha256": "5c3eeccd5c5d525149cd793c8adc6a8199b7a804ee1599c60cbcc8c569254eb5",
+      "characters": 25084,
+      "sha256": "3792e5d997f66fb15816b8c614c2e7952a4fa668280018cb95451602df9c96d5",
       "sources": [
         {
           "path": "outputs/catalog/博AI增效-1D-10倍职场办公_6X畅销版.md",
@@ -89,8 +89,8 @@
     },
     "博AI课纲-手机参考包-营销增长与智能体.md": {
       "key": "marketing-agent",
-      "characters": 13327,
-      "sha256": "4b6a9e97ed09aa9ba842372ca372a04c4fa3384f5540c1d89768963e6b3e9579",
+      "characters": 13260,
+      "sha256": "d614931e9070f49a3b35f2d4e8555db6c757f7e2b57a0c40c47e5dddb1712a5c",
       "sources": [
         {
           "path": "outputs/catalog/博AI增效-1D-10倍AI营销引擎_6X极速版.md",
@@ -112,8 +112,8 @@
     },
     "博AI课纲-手机参考包-行业专项.md": {
       "key": "industry",
-      "characters": 23833,
-      "sha256": "6a92091db8a82c1b3d116faf8181a53d2b34ddc65058294d4e762e39277f4d07",
+      "characters": 23766,
+      "sha256": "05b916bc1f6fe296863ad216406339fe7a474523d8a437e3afd5176255d641c7",
       "sources": [
         {
           "path": "outputs/catalog/博AI增效-1D-电网AI办公增效实战_6X垂直版.md",
@@ -143,12 +143,12 @@
     },
     "博AI课纲-手机加载包.md": {
       "key": "full",
-      "characters": 100259,
-      "sha256": "6243f72878c6855d21769008713afb356013962d3184859013df2ff3e5e09915",
+      "characters": 100450,
+      "sha256": "501fe7351f4d61a008a8f5c999b1e5d854eed3ae83078600758c2e840a6615b3",
       "sources": [
         {
           "path": "SKILL.md",
-          "sha256": "4ffff6bc069edbfb4ffd4d003699a28da8b6457a53ff8b2f28e065bdcaef6466"
+          "sha256": "f4942a2d4b5d45ff2ee07f247374f1ee04c4b15fec08de6a524d096e9d53f1cb"
         },
         {
           "path": "WORKFLOW.md",
@@ -160,7 +160,7 @@
         },
         {
           "path": "CHECKLIST.md",
-          "sha256": "fbff6ed1480a04f518211fc9c810fabf2ae21a7bba5caf2f302c25927ddf81d0"
+          "sha256": "ba07149f0bfcd6f96c7bf3355f55ea571e9658e8a3937a3b898d069be0d575ae"
         },
         {
           "path": "references/CURRENT-COURSE-PACK.md",
@@ -252,7 +252,7 @@
         },
         {
           "path": "delivery-pack/DELIVERY-WORKFLOW.md",
-          "sha256": "b02091d1ca86610a05198489909a8e7709dcbc1b9074f0f5f7ceef43eeb27791"
+          "sha256": "456f19184cc85ac37111096aad3c72c8e8bab81e2fc777b5b2c53423e321487d"
         },
         {
           "path": "delivery-pack/STYLE-GUIDE-WORD.md",
